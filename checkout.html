@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout — Alo Story</title>
+<meta name="description" content="Complete your Alo Story order.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><i data-icon="book-open"></i> Alo <em>Story</em></a>
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="shop.html">Shop All</a></li>
+        <li><a href="shop.html?category=phone-cases">Phone Cases</a></li>
+        <li><a href="shop.html?category=metal-stickers">Metal Stickers</a></li>
+        <li><a href="shop.html?category=bookmarks">Bookmarks</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="icon-btn" data-open-cart aria-label="Open bag" style="position:relative">
+        <i data-icon="cart"></i>
+        <span class="cart-count" hidden>0</span>
+      </button>
+      <button type="button" class="icon-btn menu-toggle" data-open-menu aria-label="Open menu"><i data-icon="menu"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <div class="backdrop" data-menu-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="mobile-nav-head">
+      <span class="logo"><i data-icon="book-open"></i> Alo <em>Story</em></span>
+      <button type="button" class="icon-btn" data-menu-close aria-label="Close menu"><i data-icon="close"></i></button>
+    </div>
+    <ul>
+      <li><a href="shop.html" data-menu-close>Shop All</a></li>
+      <li><a href="shop.html?category=phone-cases" data-menu-close>Phone Cases</a></li>
+      <li><a href="shop.html?category=metal-stickers" data-menu-close>Metal Stickers</a></li>
+      <li><a href="shop.html?category=bookmarks" data-menu-close>Bookmarks</a></li>
+      <li><a href="about.html" data-menu-close>Our Story</a></li>
+      <li><a href="contact.html" data-menu-close>Contact</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="cart-drawer" id="cart-drawer" aria-hidden="true">
+  <div class="backdrop" data-cart-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title">
+    <div class="drawer-head">
+      <h3 id="cart-drawer-title">Your Bag</h3>
+      <button type="button" class="icon-btn" data-cart-close aria-label="Close cart"><i data-icon="close"></i></button>
+    </div>
+    <div class="drawer-body" id="cart-drawer-body"></div>
+    <div class="drawer-foot" id="cart-drawer-foot">
+      <div class="summary-row"><span>Subtotal</span><span id="cart-drawer-subtotal">$0.00</span></div>
+      <p class="text-xs muted mb-3">Shipping &amp; taxes calculated at checkout.</p>
+      <div class="drawer-actions">
+        <a href="cart.html" class="btn btn-outline btn-block">View Bag</a>
+        <a href="checkout.html" class="btn btn-primary btn-block">Checkout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+  <div class="container page-header">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><i data-icon="chevron-right" data-icon-class="icon-sm"></i>
+      <a href="cart.html">Bag</a><i data-icon="chevron-right" data-icon-class="icon-sm"></i>
+      <span aria-current="page">Checkout</span>
+    </nav>
+    <h1>Checkout</h1>
+    <ul class="checkout-steps">
+      <li><span class="num">1</span> Bag</li>
+      <li class="active"><span class="num">2</span> Details</li>
+      <li><span class="num">3</span> Confirmation</li>
+    </ul>
+  </div>
+
+  <div class="container section-tight" style="padding-top:0" id="checkout-wrap">
+    <div class="checkout-grid">
+      <div>
+        <div class="form-alert info is-visible mb-5">
+          <i data-icon="alert" data-icon-class="icon-sm"></i>
+          <span>This is a demo store — no payment is collected and no real order will be fulfilled.</span>
+        </div>
+
+        <form id="checkout-form" novalidate>
+          <h3 class="mb-5">Contact</h3>
+          <div class="field" id="field-email">
+            <label for="checkout-email">Email <span class="req">*</span></label>
+            <input type="email" id="checkout-email" name="email" required autocomplete="email" placeholder="you@example.com">
+            <span class="error-msg" role="alert"><i data-icon="alert" data-icon-class="icon-sm"></i><span>Enter a valid email address.</span></span>
+          </div>
+
+          <hr class="divider mb-5">
+
+          <h3 class="mb-5">Shipping Address</h3>
+          <div class="field" id="field-name">
+            <label for="checkout-name">Full name <span class="req">*</span></label>
+            <input type="text" id="checkout-name" name="name" required autocomplete="name" placeholder="Jordan Reyes">
+            <span class="error-msg" role="alert"><i data-icon="alert" data-icon-class="icon-sm"></i><span>Please enter your full name.</span></span>
+          </div>
+          <div class="field" id="field-address">
+            <label for="checkout-address">Address <span class="req">*</span></label>
+            <input type="text" id="checkout-address" name="address" required autocomplete="street-address" placeholder="123 Reading Lane">
+            <span class="error-msg" role="alert"><i data-icon="alert" data-icon-class="icon-sm"></i><span>Please enter your street address.</span></span>
+          </div>
+          <div class="field-row two">
+            <div class="field" id="field-city">
+              <label for="checkout-city">City <span class="req">*</span></label>
+              <input type="text" id="checkout-city" name="city" required autocomplete="address-level2" placeholder="Portland">
+              <span class="error-msg" role="alert"><i data-icon="alert" data-icon-class="icon-sm"></i><span>Please enter your city.</span></span>
+            </div>
+            <div class="field" id="field-zip">
+              <label for="checkout-zip">Postal code <span class="req">*</span></label>
+              <input type="text" id="checkout-zip" name="zip" required autocomplete="postal-code" placeholder="97201" inputmode="numeric">
+              <span class="error-msg" role="alert"><i data-icon="alert" data-icon-class="icon-sm"></i><span>Please enter your postal code.</span></span>
+            </div>
+          </div>
+          <div class="field" id="field-country">
+            <label for="checkout-country">Country <span class="req">*</span></label>
+            <select id="checkout-country" name="country" required autocomplete="country">
+              <option value="">Select a country</option>
+              <option>United States</option>
+              <option>Canada</option>
+              <option>United Kingdom</option>
+              <option>Australia</option>
+              <option>Vietnam</option>
+              <option>Other</option>
+            </select>
+            <span class="error-msg" role="alert"><i data-icon="alert" data-icon-class="icon-sm"></i><span>Please select a country.</span></span>
+          </div>
+
+          <hr class="divider mb-5">
+
+          <h3 class="mb-5">Payment</h3>
+          <p class="pill-note mb-5"><i data-icon="lock" data-icon-class="icon-sm"></i> No card details are requested on this demo checkout.</p>
+
+          <button type="submit" class="btn btn-primary btn-block" id="place-order-btn">Place Demo Order — <span id="place-order-total">$0.00</span></button>
+        </form>
+      </div>
+
+      <div class="summary-card">
+        <h3 class="mb-5">Order Summary</h3>
+        <div id="checkout-mini-lines"></div>
+        <div class="summary-row mt-8"><span>Subtotal</span><span id="co-subtotal">$0.00</span></div>
+        <div class="summary-row" id="co-discount-row" style="display:none"><span>Discount</span><span id="co-discount">−$0.00</span></div>
+        <div class="summary-row"><span>Shipping</span><span id="co-shipping">$0.00</span></div>
+        <div class="summary-row total"><span>Total</span><span id="co-total">$0.00</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container section" id="checkout-empty" hidden>
+    <div class="empty-cart">
+      <i data-icon="cart" data-icon-class="icon-lg"></i>
+      <h3 class="mb-2">Your bag is empty</h3>
+      <p class="mb-5">Add something you love before checking out.</p>
+      <a href="shop.html" class="btn btn-primary">Start Shopping</a>
+    </div>
+  </div>
+
+  <div class="container" id="confirmation-wrap" hidden>
+    <div class="confirmation">
+      <div class="icon-wrap"><i data-icon="check" data-icon-class="icon-lg"></i></div>
+      <span class="eyebrow" style="justify-content:center">Order Confirmed</span>
+      <h1 class="mt-8">Thank you, your story continues</h1>
+      <p class="lede mt-8" style="margin-inline:auto">Order <strong id="order-number"></strong> has been placed. This is a demo confirmation — no email will be sent and no charge was made.</p>
+      <a href="shop.html" class="btn btn-primary mt-8">Continue Shopping</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="margin-top:0;border-top:none;padding-top:0">
+      <p>&copy; <span data-year></span> Alo Story. All rights reserved.</p>
+      <ul><li><a href="faq.html">FAQ</a></li><li><a href="shipping-returns.html">Shipping &amp; Returns</a></li><li><a href="contact.html">Contact</a></li></ul>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/render.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/checkout.js"></script>
+</body>
+</html>
