@@ -1,11 +1,11 @@
-<x-layouts.store :overlay="true">
+<x-layouts.store :full="true">
     {{-- ١. البنر المقلّم (Frame 2) والقطة بنفس مكانها في Figma: نصها السفلي يطلع تحت البنر --}}
-    <section class="stripes relative z-10 min-h-[420px] rounded-b-[18px] sm:min-h-[min(70vh,640px)]">
-        <img src="{{ asset('images/alo/cat-sticker.png') }}" alt="" class="cat-real pointer-events-none absolute right-[3%] bottom-0 w-[17%] max-w-[260px] min-w-[110px]" width="1176" height="864">
+    <section class="stripes relative z-10 mx-3 mt-3 h-[240px] rounded-[18px] sm:mx-5 sm:h-[min(42vh,380px)]">
+        <img src="{{ asset('images/alo/cat-sticker.png') }}" alt="" class="cat-real pointer-events-none absolute right-[3%] bottom-0 w-[15%] max-w-[220px] min-w-[100px]" width="1176" height="864">
     </section>
 
     {{-- ٢. المنتجات (المساحة البيضا) --}}
-    <section class="bg-white px-6 pt-[max(5rem,10vw)] pb-20 lg:pt-32">
+    <section class="bg-white px-6 pt-[max(4.5rem,8vw)] pb-20 lg:pt-28">
         @if ($categories->isNotEmpty())
             <nav class="mb-10 flex flex-wrap justify-center gap-x-6 gap-y-2" aria-label="الأقسام">
                 <a href="{{ route('shop') }}" class="chip-active">الكل</a>
@@ -26,7 +26,7 @@
     </section>
 
     {{-- ٣. البنر الوردي (Frame 13) --}}
-    <section class="swirl min-h-[260px] sm:min-h-[340px]" aria-hidden="true"></section>
+    <section class="swirl h-[160px] sm:h-[220px]" aria-hidden="true"></section>
 
     {{-- ٤. منتجات إضافية (المساحة البيضا) --}}
     @if ($gridProducts->count() > $featuredProducts->count())
@@ -45,5 +45,5 @@
     @endif
 
     {{-- ٥. البنر الأزرق الفاتح (Frame 16) --}}
-    <section class="sky min-h-[300px] sm:min-h-[420px]" aria-hidden="true"></section>
+    <section class="sky h-[160px] sm:h-[240px]" aria-hidden="true"></section>
 </x-layouts.store>

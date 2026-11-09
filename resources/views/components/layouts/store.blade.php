@@ -1,4 +1,4 @@
-@props(['title' => null, 'description' => null, 'overlay' => false])
+@props(['title' => null, 'description' => null, 'overlay' => false, 'full' => false])
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -89,8 +89,8 @@
         </nav>
     </header>
 
-    <main id="main" class="{{ $overlay ? 'w-full flex-1' : 'mx-auto w-full max-w-[1240px] flex-1 px-6 py-10' }}">
-        @if ($overlay)
+    <main id="main" class="{{ $overlay || $full ? 'w-full flex-1' : 'mx-auto w-full max-w-[1240px] flex-1 px-6 py-10' }}">
+        @if ($overlay || $full)
             <div class="absolute inset-x-0 top-24 z-20 mx-auto max-w-[1240px] px-6"><x-flash /></div>
         @else
             <x-flash />

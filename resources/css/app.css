@@ -127,8 +127,8 @@
     .stripes {
         background-color: #fdf5e9;
         background-image: linear-gradient(90deg, #b4cfe6 0 46.4%, #fdf5e9 46.4% 100%);
-        background-size: 8.93% 100%;
-        background-position: 2.5% 0;
+        background-size: 72px 100%;
+        background-position: 16px 0;
     }
     .swirl {
         background: #fac9da url('/images/alo/swirl.svg') center bottom / cover;
