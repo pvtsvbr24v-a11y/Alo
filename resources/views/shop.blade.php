@@ -1,7 +1,7 @@
-<x-layouts.store :title="$activeCategory?->name ?? 'المتجر'">
+<x-layouts.store :title="$onlyOffers ? 'Offers' : ($activeCategory?->name ?? 'المتجر')">
     <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-            <h1 class="squiggle text-4xl">{{ $activeCategory?->name ?? 'كل المنتجات' }}</h1>
+            <h1 class="squiggle text-4xl">{{ $onlyOffers ? 'Offers' : ($activeCategory?->name ?? 'كل المنتجات') }}</h1>
             @if ($search !== '')
                 <p class="mt-1 text-muted">نتائج البحث عن «{{ $search }}»</p>
             @endif
@@ -9,6 +9,7 @@
 
         <form method="GET" action="{{ route('shop') }}" class="flex items-center gap-2">
             @if ($activeCategory)<input type="hidden" name="category" value="{{ $activeCategory->slug }}">@endif
+            @if ($onlyOffers)<input type="hidden" name="offers" value="1">@endif
             @if ($search !== '')<input type="hidden" name="q" value="{{ $search }}">@endif
             <label for="sort" class="text-sm font-bold">ترتيب:</label>
             <select id="sort" name="sort" class="input w-auto rounded-full py-2 text-sm" onchange="this.form.submit()">
@@ -21,10 +22,11 @@
     </div>
 
     <nav class="mb-8 flex gap-2 overflow-x-auto pb-1" aria-label="الأقسام">
-        <a href="{{ route('shop', array_filter(['sort' => $sort, 'q' => $search])) }}" class="{{ $activeCategory ? 'chip' : 'chip-active' }}">الكل</a>
+        <a href="{{ route('shop', array_filter(['sort' => $sort, 'q' => $search])) }}" class="{{ $activeCategory || $onlyOffers ? 'chip' : 'chip-active' }}">الكل</a>
         @foreach ($categories as $category)
             <a href="{{ route('shop', array_filter(['category' => $category->slug, 'sort' => $sort, 'q' => $search])) }}" class="{{ $activeCategory?->is($category) ? 'chip-active' : 'chip' }}">{{ $category->name }}</a>
         @endforeach
+        <a href="{{ route('shop', ['offers' => 1]) }}" class="{{ $onlyOffers ? 'chip-active' : 'chip' }}">Offers</a>
     </nav>
 
     @if ($products->isEmpty())

@@ -19,6 +19,7 @@ class HomeController extends Controller
         return view('home', [
             'categories' => Category::query()->orderBy('sort_order')->get(),
             'featuredProducts' => $featuredProducts,
+            'offerProducts' => Product::query()->active()->whereColumn('compare_at_price', '>', 'price')->latest()->take(4)->get(),
             'gridProducts' => Product::query()->active()->with('category')->latest()->take(8)->get(),
         ]);
     }

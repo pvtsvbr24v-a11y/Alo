@@ -24,10 +24,12 @@ class ShopController extends Controller
         $activeCategory = $categories->firstWhere('slug', $request->string('category')->toString());
         $sort = array_key_exists($request->string('sort')->toString(), self::SORT_OPTIONS) ? $request->string('sort')->toString() : 'newest';
         $search = trim($request->string('q')->toString());
+        $onlyOffers = $request->boolean('offers');
 
         $products = Product::query()
             ->active()
             ->when($activeCategory, fn ($query) => $query->where('category_id', $activeCategory->id))
+            ->when($onlyOffers, fn ($query) => $query->whereColumn('compare_at_price', '>', 'price'))
             ->when($search !== '', fn ($query) => $query->where(fn ($inner) => $inner
                 ->where('name', 'like', "%{$search}%")
                 ->orWhere('description', 'like', "%{$search}%")))
@@ -43,6 +45,7 @@ class ShopController extends Controller
             'products' => $products,
             'sort' => $sort,
             'search' => $search,
+            'onlyOffers' => $onlyOffers,
             'sortOptions' => self::SORT_OPTIONS,
         ]);
     }

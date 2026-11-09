@@ -12,6 +12,7 @@
                 @foreach ($categories as $category)
                     <a href="{{ route('shop', ['category' => $category->slug]) }}" class="chip">{{ $category->name }}</a>
                 @endforeach
+                <a href="{{ route('shop', ['offers' => 1]) }}" class="chip">Offers</a>
             </nav>
         @endif
         <div class="mx-auto grid max-w-[1000px] grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
@@ -27,6 +28,21 @@
 
     {{-- ٣. البنر الوردي (Frame 13) --}}
     <section class="swirl h-[160px] sm:h-[220px]" aria-hidden="true"></section>
+
+    {{-- قسم العروض --}}
+    @if ($offerProducts->isNotEmpty())
+        <section class="bg-[#fdf1f3] px-6 py-16">
+            <div class="mx-auto mb-10 flex max-w-[1000px] items-center justify-between">
+                <h2 class="text-[30px] leading-tight text-ink" dir="ltr">Offers</h2>
+                <a href="{{ route('shop', ['offers' => 1]) }}" class="chip">الكل ←</a>
+            </div>
+            <div class="mx-auto grid max-w-[1000px] grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+                @foreach ($offerProducts as $product)
+                    <x-product-card :product="$product" />
+                @endforeach
+            </div>
+        </section>
+    @endif
 
     {{-- ٤. منتجات إضافية (المساحة البيضا) --}}
     @if ($gridProducts->count() > $featuredProducts->count())

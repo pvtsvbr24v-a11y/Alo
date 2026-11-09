@@ -44,6 +44,10 @@
             <nav class="hidden flex-1 items-center justify-center gap-9 text-[13px] leading-4 font-bold text-ink md:flex" aria-label="الرئيسية">
                 <a href="{{ route('home') }}" class="hover:text-brand">الرئيسية</a>
                 <a href="{{ route('shop') }}" class="hover:text-brand">المتجر</a>
+                @foreach (\App\Models\Category::query()->orderBy('sort_order')->get() as $navCategory)
+                    <a href="{{ route('shop', ['category' => $navCategory->slug]) }}" class="hover:text-brand" dir="ltr">{{ $navCategory->name }}</a>
+                @endforeach
+                <a href="{{ route('shop', ['offers' => 1]) }}" class="text-brand hover:underline" dir="ltr">Offers</a>
                 <a href="{{ route('pages.contact') }}" class="hover:text-brand">تواصل معنا</a>
             </nav>
 
@@ -81,6 +85,10 @@
             <div class="flex flex-col text-[13px] font-bold">
                 <a href="{{ route('home') }}" class="py-2 hover:text-brand">الرئيسية</a>
                 <a href="{{ route('shop') }}" class="py-2 hover:text-brand">المتجر</a>
+                @foreach (\App\Models\Category::query()->orderBy('sort_order')->get() as $navCategory)
+                    <a href="{{ route('shop', ['category' => $navCategory->slug]) }}" class="py-2 hover:text-brand">{{ $navCategory->name }}</a>
+                @endforeach
+                <a href="{{ route('shop', ['offers' => 1]) }}" class="py-2 text-brand">Offers</a>
                 <a href="{{ route('pages.contact') }}" class="py-2 hover:text-brand">تواصل معنا</a>
                 @auth
                     <a href="{{ route('account') }}" class="py-2 hover:text-brand">حسابي</a>

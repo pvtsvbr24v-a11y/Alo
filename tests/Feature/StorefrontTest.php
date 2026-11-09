@@ -44,3 +44,13 @@ it('shows an active product page and 404s for an inactive one', function () {
 it('renders the static pages', function (string $routeName) {
     $this->get(route($routeName))->assertOk();
 })->with(['pages.about', 'pages.policies', 'pages.contact']);
+
+it('shows only discounted products on the offers page', function () {
+    Product::factory()->create(['name' => 'ستيكر بخصم', 'price' => 10, 'compare_at_price' => 20]);
+    Product::factory()->create(['name' => 'ستيكر بسعره', 'price' => 10]);
+
+    $this->get(route('shop', ['offers' => 1]))
+        ->assertOk()
+        ->assertSee('ستيكر بخصم')
+        ->assertDontSee('ستيكر بسعره');
+});
