@@ -152,10 +152,3 @@
         transform: translateX(0);
     }
 }
-@media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-        animation: none;
-    }
-}
-
-
