@@ -125,7 +125,7 @@
     /* قوام القماش من الملف */
     /* خلفيات Figma مرسومة بالكود: حادة على أي شاشة */
     .stripes {
-        background: #fdf8f1 url('/images/alo/hero-stripes.svg') center / cover;
+        background: #fffafa url('/images/alo/hero-stripes.svg') center / cover;
     }
     .swirl {
         background: #fac9da url('/images/alo/swirl.svg') center bottom / cover;
