@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views';
+@source '../../app/Enums';
+
+/* ألوان مؤقتة مأخوذة من القالب (بيج وبرتقالي)، تتغير لما يدخل تصميم Figma */
+@theme {
+    --font-sans: 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+
+    --color-cream: #f5f1ea;
+    --color-sand: #ebe3d6;
+    --color-ink: #2b2118;
+    --color-muted: #7a6a5a;
+    --color-brand: #c8692c;
+    --color-brand-dark: #a5531f;
+}
+
+@layer components {
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50 bg-brand text-white hover:bg-brand-dark;
+    }
+    .btn-outline {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50 border border-ink/20 text-ink hover:bg-sand;
+    }
+    .btn-danger {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50 bg-rose-600 text-white hover:bg-rose-700;
+    }
+    .label {
+        @apply mb-1 block text-sm font-bold text-ink;
+    }
+    .input {
+        @apply w-full rounded-lg border border-ink/15 bg-white px-4 py-2.5 text-ink placeholder-muted/70 focus:border-brand focus:ring-2 focus:ring-brand/20 focus:outline-none;
+    }
+    .card {
+        @apply rounded-2xl bg-white p-5 shadow-sm ring-1 ring-ink/5;
+    }
+    .field-error {
+        @apply mt-1 text-sm text-rose-600;
+    }
+}
