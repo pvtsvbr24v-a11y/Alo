@@ -14,8 +14,22 @@
 <body class="flex min-h-screen flex-col font-sans antialiased">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:right-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2">تخطَّ للمحتوى</a>
 
-    @if (filled(config('content.announcement')))
-        <div class="bg-ink-soft py-2 text-center text-xs tracking-[1px] text-white">{{ config('content.announcement') }}</div>
+    @php($announcements = array_values(array_filter(config('content.announcements', []))))
+    @if ($announcements)
+        <div class="marquee relative z-40 overflow-hidden bg-ink-soft py-2.5 text-[13px] font-bold text-white" role="region" aria-label="إعلانات">
+            <p class="sr-only">{{ implode(' · ', $announcements) }}</p>
+            <div class="marquee-track flex w-max" dir="ltr" aria-hidden="true">
+                @foreach (range(1, 2) as $copy)
+                    <div class="flex shrink-0">
+                        @foreach (range(1, max(1, (int) ceil(12 / count($announcements)))) as $repeat)
+                            @foreach ($announcements as $announcement)
+                                <span class="flex items-center gap-8 px-8 whitespace-nowrap" dir="rtl">{{ $announcement }}<span class="text-[10px] text-brand">✦</span></span>
+                            @endforeach
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+        </div>
     @endif
 
     {{-- الهيدر: فوق البنر في الرئيسية (مثل Figma)، وأبيض في باقي الصفحات --}}
