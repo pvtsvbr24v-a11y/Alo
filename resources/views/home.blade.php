@@ -19,12 +19,13 @@
                 </div>
             @endif
         </div>
+        {{-- القطة مكان الفيونكات --}}
+        <img src="{{ asset('images/alo/cat-sticker.png') }}" alt="" class="pointer-events-none absolute right-[6%] bottom-6 w-36 sm:right-[10%] sm:bottom-10 sm:w-56" loading="lazy">
     </section>
 
-    {{-- ٢. الحكاية (Frame 12): القطة فوق يمين العنوان مثل Figma --}}
-    <section class="relative overflow-hidden bg-cream px-6 pt-36 pb-20 sm:pt-40">
+    {{-- ٢. الحكاية (Frame 12) --}}
+    <section class="relative overflow-hidden bg-cream px-6 py-20">
         <div class="relative mx-auto max-w-[1000px] text-center">
-            <img src="{{ asset('images/alo/cat-sticker.png') }}" alt="" class="pointer-events-none absolute -top-28 right-0 w-36 sm:-top-32 sm:right-[4%] sm:w-52 lg:w-60" loading="lazy">
             @if (filled($text['history_title']))
                 <h2 class="squiggle text-center font-story text-[30px] leading-tight text-ink sm:text-[34px]" dir="ltr">{{ $text['history_title'] }}</h2>
             @endif
