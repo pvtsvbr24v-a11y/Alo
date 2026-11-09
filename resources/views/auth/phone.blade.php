@@ -2,8 +2,7 @@
     <div class="mx-auto max-w-sm">
         <div class="card space-y-5 p-8">
             <div class="text-center">
-                <p class="text-5xl" aria-hidden="true">🐈‍⬛</p>
-                <h1 class="text-3xl">أهلاً فيك</h1>
+                                <h1 class="text-3xl">أهلاً فيك</h1>
                 <p class="mt-1 text-sm text-muted">اكتب رقم جوالك ونرسل لك رمز دخول</p>
             </div>
             <form method="POST" action="{{ route('login') }}" class="space-y-4">

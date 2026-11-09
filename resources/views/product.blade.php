@@ -12,8 +12,8 @@
         </div>
 
         <div>
-            <p class="text-sm font-bold text-sky-dark">{{ $product->category->name }}</p>
-            <h1 class="mt-1 text-4xl leading-snug">{{ $product->name }}</h1>
+            <p class="text-sm text-muted">{{ $product->category->name }}</p>
+            <h1 class="mt-1 text-3xl">{{ $product->name }}</h1>
 
             <div class="mt-4 flex items-baseline gap-3">
                 <x-price :amount="$product->price" class="text-3xl font-bold text-brand" />
@@ -40,7 +40,7 @@
                         @error('quantity')<p class="field-error">{{ $message }}</p>@enderror
                     </div>
                     <div class="flex flex-wrap gap-3">
-                        <button type="submit" class="btn-primary flex-1 sm:flex-none">أضف للسلة 🤍</button>
+                        <button type="submit" class="btn-primary flex-1 sm:flex-none">أضف للسلة</button>
                         <button type="submit" name="buy_now" value="1" class="btn-outline flex-1 sm:flex-none">اشترِ الآن</button>
                     </div>
                 </form>
@@ -49,8 +49,8 @@
             @endif
 
             @if ($product->description)
-                <div class="mt-8 border-t-2 border-dashed border-sky/40 pt-6">
-                    <h2 class="mb-2 text-xl">الحكاية</h2>
+                <div class="mt-8 border-t border-sand pt-6">
+                    <h2 class="mb-2 text-lg">الوصف</h2>
                     <p class="leading-8 whitespace-pre-line text-muted">{{ $product->description }}</p>
                 </div>
             @endif
@@ -64,7 +64,7 @@
 
     @if ($relatedProducts->isNotEmpty())
         <section class="mt-16" aria-labelledby="related-title">
-            <h2 id="related-title" class="squiggle mb-8 text-3xl">حكايات قريبة</h2>
+            <h2 id="related-title" class="mb-6 text-xl">منتجات مشابهة</h2>
             <div class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-6">
                 @foreach ($relatedProducts as $related)
                     <x-product-card :product="$related" />

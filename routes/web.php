@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IntroController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PhoneLoginController;
@@ -19,11 +18,9 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// المدخل التفاعلي، وبعده الرئيسية حق المتجر
-Route::get('/', IntroController::class)->name('intro');
-
 // المتجر (مفتوح للجميع)
-Route::get('/store', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::redirect('/store', '/');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::view('/about', 'pages.about')->name('pages.about');

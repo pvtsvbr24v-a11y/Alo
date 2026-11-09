@@ -26,7 +26,7 @@ class PaymentController extends Controller
         if ($payments->confirm($order, $request)) {
             $order->update(['status' => OrderStatus::Pending, 'paid_at' => now()]);
 
-            return redirect()->route('orders.show', $order)->with('status', 'تم الدفع واستلمنا طلبك 🤍');
+            return redirect()->route('orders.show', $order)->with('status', 'تم الدفع واستلمنا طلبك');
         }
 
         self::releaseOrder($order, $cart);

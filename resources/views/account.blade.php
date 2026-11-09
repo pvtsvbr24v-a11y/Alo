@@ -1,20 +1,19 @@
 <x-layouts.store title="حسابي">
     {{-- رأس الصفحة: الأفتار والاسم --}}
     <section class="card relative overflow-hidden text-center sm:text-start">
-        <div class="stripes absolute inset-x-0 top-0 h-24 opacity-60" aria-hidden="true"></div>
-        <div class="relative flex flex-col items-center gap-5 pt-10 sm:flex-row sm:items-end">
+        <div class="relative flex flex-col items-center gap-5 sm:flex-row sm:items-end">
             <x-avatar :user="$user" size="h-28 w-28 text-5xl" class="ring-4" />
             <div class="flex-1">
-                <h1 class="text-4xl">{{ $user->name ?: 'أهلاً فيك 🤍' }}</h1>
+                <h1 class="text-4xl">{{ $user->name ?: 'أهلاً فيك' }}</h1>
                 <p class="mt-1 text-muted" dir="ltr" style="text-align: inherit">{{ $user->phone }}</p>
             </div>
             <div class="flex gap-3">
                 <div class="glass px-5 py-3 text-center">
-                    <p class="font-latin text-3xl leading-none font-semibold">{{ $ordersCount }}</p>
+                    <p class="text-3xl leading-none font-semibold">{{ $ordersCount }}</p>
                     <p class="mt-1 text-xs text-muted">طلب</p>
                 </div>
                 <div class="glass px-5 py-3 text-center">
-                    <p class="font-latin text-lg leading-none font-semibold">{{ $user->created_at->translatedFormat('M Y') }}</p>
+                    <p class="text-lg leading-none font-semibold">{{ $user->created_at->translatedFormat('M Y') }}</p>
                     <p class="mt-1 text-xs text-muted">معنا من</p>
                 </div>
             </div>
@@ -63,7 +62,7 @@
                     <input id="address" name="address" class="input" autocomplete="street-address" placeholder="الشارع، رقم المبنى، أو العنوان الوطني" value="{{ old('address', $user->address) }}">
                     @error('address')<p class="field-error">{{ $message }}</p>@enderror
                 </div>
-                <button type="submit" class="btn-primary">حفظ 🤍</button>
+                <button type="submit" class="btn-primary">حفظ</button>
             </form>
 
             {{-- آخر الطلبات --}}
@@ -85,7 +84,7 @@
                     </a>
                 @empty
                     <div class="py-8 text-center">
-                        <p class="text-4xl" aria-hidden="true">🧺</p>
+                        
                         <p class="mt-2 text-muted">ما عندك طلبات للحين</p>
                         <a href="{{ route('shop') }}" class="btn-soft mt-4">ابدأ التسوّق</a>
                     </div>
@@ -108,7 +107,7 @@
                 @error('preset')<p class="field-error">{{ $message }}</p>@enderror
             </form>
 
-            <form method="POST" action="{{ route('account.avatar') }}" enctype="multipart/form-data" class="space-y-3 border-t-2 border-dashed border-sky/40 pt-5">
+            <form method="POST" action="{{ route('account.avatar') }}" enctype="multipart/form-data" class="space-y-3 border-t border-sand pt-5">
                 @csrf
                 <label for="avatar_file" class="label">أو ارفع صورتك</label>
                 <input id="avatar_file" name="avatar_file" type="file" accept="image/*" class="block w-full text-sm file:me-3 file:rounded-full file:border-0 file:bg-sky-soft file:px-4 file:py-2 file:font-bold file:text-ink" required>
@@ -125,7 +124,7 @@
                 </form>
             @endif
 
-            <form method="POST" action="{{ route('logout') }}" class="border-t-2 border-dashed border-sky/40 pt-5">
+            <form method="POST" action="{{ route('logout') }}" class="border-t border-sand pt-5">
                 @csrf
                 <button class="btn-outline w-full">تسجيل الخروج</button>
             </form>

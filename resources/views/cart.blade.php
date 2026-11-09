@@ -1,9 +1,9 @@
 <x-layouts.store title="السلة">
-    <h1 class="squiggle mb-8 text-4xl">سلتك</h1>
+    <h1 class="mb-6 text-2xl">السلة</h1>
 
     @if ($lines->isEmpty())
         <div class="card py-16 text-center">
-            <p class="text-5xl" aria-hidden="true">🧺</p><p class="mt-3 font-display text-2xl font-bold">سلتك فاضية</p>
+            <p class="mt-3 text-lg font-bold">سلتك فاضية</p>
             <p class="mt-1 text-muted">تصفّح المنتجات وأضف اللي يعجبك.</p>
             <a href="{{ route('shop') }}" class="btn-primary mt-5">ابدأ التسوّق</a>
         </div>
