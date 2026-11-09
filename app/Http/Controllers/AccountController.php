@@ -57,7 +57,7 @@ class AccountController extends Controller
 
         $request->user()->update(['avatar' => $avatar]);
 
-        return back()->with('status', 'تغيّر الأفتار');
+        return back()->with('status', 'تغيّر الأفتار 🤍');
     }
 
     public function destroyAvatar(Request $request): RedirectResponse

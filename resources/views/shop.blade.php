@@ -1,7 +1,7 @@
 <x-layouts.store :title="$activeCategory?->name ?? 'المتجر'">
     <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-            <h1 class="text-2xl">{{ $activeCategory?->name ?? 'كل المنتجات' }}</h1>
+            <h1 class="squiggle text-4xl">{{ $activeCategory?->name ?? 'كل المنتجات' }}</h1>
             @if ($search !== '')
                 <p class="mt-1 text-muted">نتائج البحث عن «{{ $search }}»</p>
             @endif
@@ -29,7 +29,7 @@
 
     @if ($products->isEmpty())
         <div class="card py-16 text-center">
-            <p class="mt-2 text-lg font-bold">ما لقينا منتجات</p>
+            <p class="text-4xl" aria-hidden="true">🔍</p><p class="mt-2 font-display text-2xl font-bold">ما لقينا حكايات هنا</p>
             <p class="mt-1 text-muted">جرّب قسم ثاني أو كلمة بحث مختلفة.</p>
             <a href="{{ route('shop') }}" class="btn-primary mt-5">عرض كل المنتجات</a>
         </div>

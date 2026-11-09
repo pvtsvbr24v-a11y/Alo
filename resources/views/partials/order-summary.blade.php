@@ -10,11 +10,11 @@
         @endif
     </div>
     @if ($shippingFee > 0)
-        <p class=" bg-butter px-4 py-2.5 text-xs">
+        <p class=" bg-butter px-4 py-2.5 text-xs">🚚 
             أضف بـ <x-price :amount="config('store.free_shipping_from') - $subtotal" class="font-bold" /> وخذ الشحن مجاناً
         </p>
     @endif
-    <div class="flex justify-between border-t border-sand pt-3 text-lg font-bold"><span>الإجمالي</span><x-price :amount="$total" /></div>
+    <div class="flex justify-between border-t-2 border-dashed border-sky/40 pt-3 text-lg font-bold"><span>الإجمالي</span><x-price :amount="$total" /></div>
     <p class="text-xs text-muted">شامل ضريبة القيمة المضافة</p>
     @if ($action ?? false)
         <a href="{{ route('checkout.show') }}" class="btn-primary w-full">إتمام الطلب</a>

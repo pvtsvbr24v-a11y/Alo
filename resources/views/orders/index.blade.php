@@ -1,5 +1,5 @@
 <x-layouts.store title="طلباتي">
-    <h1 class="mb-6 text-2xl">طلباتي</h1>
+    <h1 class="squiggle mb-8 text-4xl">طلباتي</h1>
 
     @if ($orders->isEmpty())
         <div class="card py-16 text-center">

@@ -1,11 +1,11 @@
 <x-layouts.store title="إتمام الطلب">
-    <h1 class="mb-6 text-2xl">إتمام الطلب</h1>
+    <h1 class="squiggle mb-8 text-4xl">إتمام الطلب</h1>
 
     <form method="POST" action="{{ route('checkout.store') }}" class="grid gap-6 lg:grid-cols-3">
         @csrf
         <div class="space-y-6 lg:col-span-2">
             <section class="card space-y-4" aria-labelledby="shipping-title">
-                <h2 id="shipping-title" class="text-2xl">بيانات التوصيل</h2>
+                <h2 id="shipping-title" class="text-2xl">وين نوصّل حكايتك؟</h2>
 
                 <div>
                     <label for="customer_name" class="label">الاسم</label>
@@ -51,7 +51,7 @@
 
             <fieldset class="card space-y-3">
                 <legend class="sr-only">طريقة الدفع</legend>
-                <p class="text-lg font-bold">طريقة الدفع</p>
+                <p class="font-display text-2xl font-bold">طريقة الدفع</p>
                 @php($selectedMethod = old('payment_method', $paymentMethods[0]->value ?? null))
                 @forelse ($paymentMethods as $method)
                     <label class="flex cursor-pointer items-center gap-4 border border-sand p-4 transition has-[:checked]:border-brand has-[:checked]:bg-cream">
@@ -82,7 +82,7 @@
 
         <div class="space-y-3">
             @include('partials.order-summary')
-            <button type="submit" class="btn-primary w-full py-4 text-base">تأكيد الطلب</button>
+            <button type="submit" class="btn-primary w-full py-4 text-base">تأكيد الطلب 🤍</button>
         </div>
     </form>
 </x-layouts.store>

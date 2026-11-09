@@ -3,8 +3,13 @@
 use App\Models\Category;
 use App\Models\Product;
 
-it('sends the old /store link to the home page', function () {
-    $this->get('/store')->assertRedirect('/');
+it('shows the interactive intro with products and a link to the store', function () {
+    $product = Product::factory()->featured()->create(['name' => 'فاصل النجمة']);
+
+    $this->get(route('intro'))
+        ->assertOk()
+        ->assertSee('فاصل النجمة')
+        ->assertSee(route('home'));
 });
 
 it('shows the store home page with featured products', function () {
