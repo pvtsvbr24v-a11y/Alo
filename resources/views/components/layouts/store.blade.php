@@ -16,14 +16,14 @@
 
     @php($announcements = array_values(array_filter(config('content.announcements', []))))
     @if ($announcements)
-        <div class="marquee relative z-40 overflow-hidden bg-[#d6b1b8] py-2.5 text-[13px] font-bold text-[#3d2a2f]" role="region" aria-label="إعلانات">
+        <div class="marquee relative z-40 overflow-hidden bg-[#fbe1e6] py-2.5 text-[13px] font-bold text-[#5a3a42]" role="region" aria-label="إعلانات">
             <p class="sr-only">{{ implode(' · ', $announcements) }}</p>
             <div class="marquee-track flex w-max" dir="ltr" aria-hidden="true">
                 @foreach (range(1, 2) as $copy)
                     <div class="flex shrink-0">
                         @foreach (range(1, max(1, (int) ceil(20 / count($announcements)))) as $repeat)
                             @foreach ($announcements as $announcement)
-                                <span class="flex items-center gap-8 px-8 whitespace-nowrap" dir="rtl">{{ $announcement }}<span class="text-[10px] text-white">✦</span></span>
+                                <span class="flex items-center gap-8 px-8 whitespace-nowrap" dir="rtl">{{ $announcement }}<span class="text-[10px] text-[#e7a3b2]">✦</span></span>
                             @endforeach
                         @endforeach
                     </div>
