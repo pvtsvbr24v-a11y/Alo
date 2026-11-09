@@ -1,7 +1,7 @@
 <x-layouts.store :full="true">
     {{-- ١. البنر المقلّم (Frame 2) والقطة بنفس مكانها في Figma: نصها السفلي يطلع تحت البنر --}}
     <section class="stripes relative z-10 mx-3 mt-3 h-[240px] rounded-[18px] sm:mx-5 sm:h-[min(42vh,380px)]">
-        <img src="{{ asset('images/alo/cat-sticker.png') }}" alt="" class="cat-real pointer-events-none absolute right-[3%] bottom-0 w-[15%] max-w-[220px] min-w-[100px]" width="1176" height="864">
+        <img src="{{ asset('images/alo/cat-sticker.png') }}" alt="" class="cat-real pointer-events-none absolute right-[2.6%] bottom-0 w-[15%] max-w-[220px] min-w-[100px]" width="1176" height="864">
     </section>
 
     {{-- ٢. المنتجات (المساحة البيضا) --}}

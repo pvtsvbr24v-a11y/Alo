@@ -125,10 +125,7 @@
     /* قوام القماش من الملف */
     /* خلفيات Figma مرسومة بالكود: حادة على أي شاشة */
     .stripes {
-        background-color: #fdf5e9;
-        background-image: linear-gradient(90deg, #b4cfe6 0 46.4%, #fdf5e9 46.4% 100%);
-        background-size: 72px 100%;
-        background-position: 16px 0;
+        background: #fdf8f1 url('/images/alo/hero-stripes.svg') center / cover;
     }
     .swirl {
         background: #fac9da url('/images/alo/swirl.svg') center bottom / cover;
@@ -174,16 +171,16 @@
 }
 @keyframes cat-breathe {
     0%, 100% {
-        transform: translateY(42%) scale(1, 1);
+        transform: translateY(61%) scale(1, 1);
     }
     50% {
-        transform: translateY(42%) scale(1.012, 1.03);
+        transform: translateY(61%) scale(1.012, 1.03);
     }
 }
 @media (prefers-reduced-motion: reduce) {
     .cat-real {
         animation: none;
-        transform: translateY(42%);
+        transform: translateY(61%);
     }
 }
 
