@@ -137,7 +137,7 @@
                 </nav>
                 <div class="flex flex-wrap items-center gap-2">
                     @foreach (array_filter(\App\Enums\PaymentMethod::cases(), fn ($method) => $method->isOnline()) as $method)
-                        <span class="border border-[#5a3a42]/20 px-2 py-1 text-[11px]">{{ $method->label() }}</span>
+                        <x-payment-badge :method="$method" size="h-7" />
                     @endforeach
                 </div>
                 <p dir="ltr">© {{ date('Y') }} ALO</p>

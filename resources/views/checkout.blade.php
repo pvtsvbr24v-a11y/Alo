@@ -56,6 +56,7 @@
                 @forelse ($paymentMethods as $method)
                     <label class="flex cursor-pointer items-center gap-4 border border-sand p-4 transition has-[:checked]:border-brand has-[:checked]:bg-cream">
                         <input type="radio" name="payment_method" value="{{ $method->value }}" class="accent-brand" @checked($selectedMethod === $method->value)>
+                        <x-payment-badge :method="$method" />
                         <span>
                             <span class="block font-bold">{{ $method->label() }}</span>
                             <span class="block text-xs text-muted">{{ $method->hint() }}</span>

@@ -48,6 +48,18 @@
                 <p class="mt-6 rounded-full bg-rose-soft px-5 py-3 font-bold text-brand-dark">نفدت الكمية، ترجع قريباً إن شاء الله</p>
             @endif
 
+            @php($installment = rtrim(rtrim(number_format((float) $product->price / 4, 2), '0'), '.'))
+            <div class="mt-6 flex flex-wrap items-center gap-2 rounded-lg border border-sand p-3 text-sm">
+                <span>قسّمها على ٤ دفعات <span class="font-bold">{{ $installment }} {{ config('store.currency') }}</span> مع</span>
+                <x-payment-badge :method="\App\Enums\PaymentMethod::Tabby" size="h-6" />
+                <x-payment-badge :method="\App\Enums\PaymentMethod::Tamara" size="h-6" />
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2">
+                @foreach (array_filter(\App\Enums\PaymentMethod::cases(), fn ($method) => $method->isOnline()) as $method)
+                    <x-payment-badge :method="$method" size="h-7" />
+                @endforeach
+            </div>
+
             @if ($product->description)
                 <div class="mt-8 border-t-2 border-dashed border-sky/40 pt-6">
                     <h2 class="mb-2 text-xl">الحكاية</h2>
