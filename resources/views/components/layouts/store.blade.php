@@ -124,20 +124,20 @@
                 </div>
             @endif
         </div>
-        <div class="bg-ink-soft">
-            <div class="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-4 px-6 py-6 text-xs leading-[14px] text-[#f7f7f7]">
+        <div class="bg-[#fbe1e6]">
+            <div class="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-4 px-6 py-6 text-xs leading-[14px] text-[#5a3a42]">
                 <nav class="flex flex-wrap gap-x-6 gap-y-2" aria-label="روابط الفوتر">
-                    <a href="{{ route('home') }}" class="hover:text-white">الرئيسية</a>
-                    <a href="{{ route('shop') }}" class="hover:text-white">المتجر</a>
-                    <a href="{{ route('pages.policies') }}" class="hover:text-white">السياسات</a>
-                    <a href="{{ route('pages.contact') }}" class="hover:text-white">تواصل معنا</a>
+                    <a href="{{ route('home') }}" class="hover:text-brand">الرئيسية</a>
+                    <a href="{{ route('shop') }}" class="hover:text-brand">المتجر</a>
+                    <a href="{{ route('pages.policies') }}" class="hover:text-brand">السياسات</a>
+                    <a href="{{ route('pages.contact') }}" class="hover:text-brand">تواصل معنا</a>
                     @auth
-                        <form method="POST" action="{{ route('logout') }}">@csrf<button class="hover:text-white">تسجيل الخروج</button></form>
+                        <form method="POST" action="{{ route('logout') }}">@csrf<button class="hover:text-brand">تسجيل الخروج</button></form>
                     @endauth
                 </nav>
                 <div class="flex flex-wrap items-center gap-2">
-                    @foreach (\App\Enums\PaymentMethod::cases() as $method)
-                        <span class="border border-white/20 px-2 py-1 text-[11px]">{{ $method->label() }}</span>
+                    @foreach (array_filter(\App\Enums\PaymentMethod::cases(), fn ($method) => $method->isOnline()) as $method)
+                        <span class="border border-[#5a3a42]/20 px-2 py-1 text-[11px]">{{ $method->label() }}</span>
                     @endforeach
                 </div>
                 <p dir="ltr">© {{ date('Y') }} ALO</p>

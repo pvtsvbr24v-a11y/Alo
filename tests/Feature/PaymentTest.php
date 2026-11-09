@@ -21,8 +21,8 @@ function deliveryDetails(string $paymentMethod): array
 }
 
 it('only offers online methods once their keys are set', function () {
-    config(['payments.moyasar.secret_key' => null, 'payments.tabby.secret_key' => null, 'payments.tamara.secret_key' => null]);
-    expect(PaymentMethod::available())->toBe([PaymentMethod::CashOnDelivery]);
+    config(['payments.moyasar.secret_key' => null, 'payments.tabby.secret_key' => null, 'payments.tamara.secret_key' => null, 'payments.cash_on_delivery' => false]);
+    expect(PaymentMethod::available())->toBe([]);
 
     config(['payments.moyasar.secret_key' => 'sk_test', 'payments.tabby.secret_key' => 'tabby_test']);
     expect(PaymentMethod::available())->toContain(PaymentMethod::Mada, PaymentMethod::ApplePay, PaymentMethod::Tabby)

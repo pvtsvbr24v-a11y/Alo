@@ -30,7 +30,7 @@ return [
         'base_url' => env('TAMARA_BASE_URL', 'https://api.tamara.co'),
     ],
 
-    // طرق بدون بوابة
-    'cash_on_delivery' => (bool) env('PAYMENT_COD_ENABLED', true),
+    // طرق بدون بوابة: مطفية (المتجر يقبل مدى و Apple Pay وتابي وتمارا بس)
+    'cash_on_delivery' => (bool) env('PAYMENT_COD_ENABLED', false),
     'bank_transfer' => (bool) env('PAYMENT_BANK_TRANSFER_ENABLED', false),
 ];

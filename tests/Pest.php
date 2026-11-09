@@ -19,6 +19,8 @@ pest()->extend(TestCase::class)
         Http::preventStrayRequests();
         $this->withoutVite();
         PhoneOtp::useFixedCode('1234');
+        // الاختبارات القديمة تطلب بالدفع عند الاستلام
+        config(['payments.cash_on_delivery' => true]);
     })
     ->afterEach(function () {
         PhoneOtp::useFixedCode(null);
