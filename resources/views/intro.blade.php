@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css'])
     <style>
-        :root { --blue: #8fb1de; --linen: #f4f1ea; --ink: #2b2118; --rose: #b8574a; --night: #12204a; --dawn: #f6dcc0; }
+        :root { --blue: #98b7d2; --linen: #f5f5f2; --ink: #1d2329; --rose: #8c3229; --night: #12204a; --dawn: #f6dcc0; }
         html { scroll-behavior: smooth; }
         body { background: var(--linen); color: var(--ink); }
         .serif-ar { font-family: 'Amiri', serif; }

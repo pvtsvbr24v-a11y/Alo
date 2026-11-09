@@ -14,9 +14,11 @@
 <body class="flex min-h-screen flex-col bg-cream font-sans text-ink antialiased">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:right-2 focus:rounded focus:bg-white focus:px-3 focus:py-2">تخطَّ للمحتوى</a>
 
-    <div class="stripes py-1.5 text-center opacity-90">
-        <span class="rounded-full bg-cream px-4 py-1 text-xs font-bold text-ink">🤍 شحن مجاني للطلبات فوق <x-price :amount="config('store.free_shipping_from')" /></span>
-    </div>
+    @if (filled(config('content.announcement')))
+        <div class="stripes py-1.5 text-center">
+            <span class="rounded-full bg-cream px-4 py-1 text-xs font-bold text-ink">{{ config('content.announcement') }}</span>
+        </div>
+    @endif
 
     <header class="sticky top-3 z-30 mx-auto mt-3 w-[calc(100%-1.5rem)] max-w-6xl">
         <div class="glass rounded-[2rem]">
@@ -86,7 +88,7 @@
         <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3">
             <div>
                 <p class="font-latin text-4xl font-semibold">Alo<span class="text-brand">.</span></p>
-                <p class="mt-2 font-display text-lg text-cream/80">حكاياتٌ صغيرة، صنعتها أختان 🤍</p>
+                @if (filled(config('content.footer_tagline')))<p class="mt-2 font-display text-lg text-cream/80">{{ config('content.footer_tagline') }}</p>@endif
             </div>
             <div>
                 <p class="mb-3 font-bold">روابط</p>
