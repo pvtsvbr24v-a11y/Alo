@@ -21,7 +21,7 @@
             <div class="marquee-track flex w-max" dir="ltr" aria-hidden="true">
                 @foreach (range(1, 2) as $copy)
                     <div class="flex shrink-0">
-                        @foreach (range(1, max(1, (int) ceil(12 / count($announcements)))) as $repeat)
+                        @foreach (range(1, max(1, (int) ceil(20 / count($announcements)))) as $repeat)
                             @foreach ($announcements as $announcement)
                                 <span class="flex items-center gap-8 px-8 whitespace-nowrap" dir="rtl">{{ $announcement }}<span class="text-[10px] text-white">✦</span></span>
                             @endforeach

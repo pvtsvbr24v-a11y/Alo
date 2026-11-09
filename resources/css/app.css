@@ -139,12 +139,10 @@
     }
 }
 
-/* الشريط المتحرك: يمشي من اليسار لليمين (مناسب للعربي) ويوقف لما تأشر عليه */
+/* الشريط المتحرك: يمشي من اليسار لليمين بدون توقف، والكلام مكرر عشان ما يطلع فراغ */
 .marquee-track {
-    animation: marquee 30s linear infinite;
-}
-.marquee:hover .marquee-track {
-    animation-play-state: paused;
+    animation: marquee 60s linear infinite;
+    will-change: transform;
 }
 @keyframes marquee {
     from {
