@@ -9,11 +9,11 @@
                 <p class="mt-1 text-muted" dir="ltr" style="text-align: inherit">{{ $user->phone }}</p>
             </div>
             <div class="flex gap-3">
-                <div class="glass rounded-2xl px-5 py-3 text-center">
+                <div class="glass px-5 py-3 text-center">
                     <p class="font-latin text-3xl leading-none font-semibold">{{ $ordersCount }}</p>
                     <p class="mt-1 text-xs text-muted">طلب</p>
                 </div>
-                <div class="glass rounded-2xl px-5 py-3 text-center">
+                <div class="glass px-5 py-3 text-center">
                     <p class="font-latin text-lg leading-none font-semibold">{{ $user->created_at->translatedFormat('M Y') }}</p>
                     <p class="mt-1 text-xs text-muted">معنا من</p>
                 </div>
@@ -75,7 +75,7 @@
                     @endif
                 </div>
                 @forelse ($orders as $order)
-                    <a href="{{ route('orders.show', $order) }}" class="mb-3 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-white/50 px-4 py-3 transition last:mb-0 hover:bg-white/80">
+                    <a href="{{ route('orders.show', $order) }}" class="mb-3 flex flex-wrap items-center justify-between gap-3 bg-white/50 px-4 py-3 transition last:mb-0 hover:bg-white/80">
                         <div>
                             <p class="font-bold" dir="ltr">{{ $order->number }}</p>
                             <p class="text-xs text-muted">{{ $order->created_at->translatedFormat('j F Y') }} · {{ $order->items_count }} منتجات</p>
@@ -102,7 +102,7 @@
                 <p class="text-sm text-muted">اختر واحد:</p>
                 <div class="grid grid-cols-4 gap-2">
                     @foreach ($presetAvatars as $preset)
-                        <button type="submit" name="preset" value="{{ $preset }}" class="glass flex aspect-square items-center justify-center rounded-2xl text-2xl transition hover:-translate-y-1 {{ $user->avatar === $preset ? 'ring-4 ring-sky' : '' }}" aria-label="اختيار الأفتار {{ $preset }}">{{ $preset }}</button>
+                        <button type="submit" name="preset" value="{{ $preset }}" class="glass flex aspect-square items-center justify-center text-2xl transition hover:-translate-y-1 {{ $user->avatar === $preset ? 'ring-4 ring-sky' : '' }}" aria-label="اختيار الأفتار {{ $preset }}">{{ $preset }}</button>
                     @endforeach
                 </div>
                 @error('preset')<p class="field-error">{{ $message }}</p>@enderror

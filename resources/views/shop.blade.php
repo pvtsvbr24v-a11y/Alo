@@ -29,7 +29,7 @@
 
     @if ($products->isEmpty())
         <div class="card py-16 text-center">
-            <p class="text-4xl" aria-hidden="true">🔍</p><p class="mt-2 font-display text-2xl">ما لقينا حكايات هنا</p>
+            <p class="text-4xl" aria-hidden="true">🔍</p><p class="mt-2 font-display text-2xl font-bold">ما لقينا حكايات هنا</p>
             <p class="mt-1 text-muted">جرّب قسم ثاني أو كلمة بحث مختلفة.</p>
             <a href="{{ route('shop') }}" class="btn-primary mt-5">عرض كل المنتجات</a>
         </div>

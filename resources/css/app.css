@@ -6,229 +6,134 @@
 @source '../../app/Enums';
 
 /*
-| ستايل Alo: قماش مقلّم، باستيل ناعم، وحكايات صغيرة.
+| ستايل Alo مأخوذ من ملف Figma:
+| Sansation للعناوين، Lato للنصوص والأزرار، Cormorant و Amiri لقسم الحكاية،
+| أحمر #e74c3c للأزرار والخطوط، وخلفية #f5f5f5.
+| الخط العربي Tajawal يكمّل الحروف العربية في كل الخطوط اللاتينية.
 */
 @theme {
-    --font-sans: 'Tajawal', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Cormorant Garamond', 'Amiri', serif;
-    --font-latin: 'Cormorant Garamond', serif;
+    --font-sans: 'Lato', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Sansation', 'Tajawal', sans-serif;
+    --font-latin: 'Sansation', sans-serif;
+    --font-story: 'Cormorant Garamond', 'Amiri', serif;
+    --font-arabic-serif: 'Amiri', serif;
 
-    --color-cream: #f5f5f2;
-    --color-sand: #e9e5dc;
-    --color-ink: #1d2329;
-    --color-muted: #7b7f84;
-    --color-brand: #c94c3e;
-    --color-brand-dark: #8c3229;
+    --color-cream: #f5f5f5;
+    --color-sand: #e6e6e6;
+    --color-ink: #222222;
+    --color-ink-soft: #2a2a2a;
+    --color-muted: #8f8f8f;
+    --color-body: #666666;
+    --color-brand: #e74c3c;
+    --color-brand-dark: #c0392b;
+    --color-wine: #781d1d;
     --color-sky: #98b7d2;
     --color-sky-dark: #6f93b5;
-    --color-sky-soft: #e6eef6;
-    --color-rose-soft: #f3d7dc;
+    --color-sky-soft: #eef3f8;
+    --color-rose-soft: #f6dfe4;
     --color-butter: #f9f3e6;
-}
-
-
-/* الزجاج: أبيض شفاف مضبب بحافة لامعة. لو المتصفح ما يدعم الضبابية يصير أبيض سادة */
-@utility glass {
-    background: rgb(255 255 255 / 0.55);
-    -webkit-backdrop-filter: blur(22px) saturate(160%);
-    backdrop-filter: blur(22px) saturate(160%);
-    border: 1px solid rgb(255 255 255 / 0.7);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 12px 32px -18px rgb(47 42 58 / 0.3);
-}
-
-@utility glass-dark {
-    background: rgb(47 42 58 / 0.78);
-    -webkit-backdrop-filter: blur(22px) saturate(140%);
-    backdrop-filter: blur(22px) saturate(140%);
-    border: 1px solid rgb(255 255 255 / 0.12);
-}
-
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .glass,
-    .card,
-    .sticker,
-    .chip {
-        background: rgb(255 255 255 / 0.94) !important;
-    }
-    .glass-dark {
-        background: var(--color-ink) !important;
-    }
 }
 
 @layer base {
     body {
-        background-color: var(--color-cream);
-    }
-    /* بقع ألوان باستيل خلف الزجاج، تتحرك ببطء */
-    body::before,
-    body::after {
-        content: '';
-        position: fixed;
-        z-index: -1;
-        border-radius: 9999px;
-        filter: blur(70px);
-        opacity: 0.45;
-        pointer-events: none;
-        animation: drift 26s ease-in-out infinite alternate;
-    }
-    body::before {
-        width: 55vmax;
-        height: 55vmax;
-        top: -18vmax;
-        right: -12vmax;
-        background: radial-gradient(circle at 30% 30%, #b9cfe3, #e6eef6 60%, transparent 70%);
-    }
-    body::after {
-        width: 50vmax;
-        height: 50vmax;
-        bottom: -20vmax;
-        left: -14vmax;
-        background: radial-gradient(circle at 60% 40%, #efc3cb, #f9f3e6 55%, transparent 70%);
-        animation-duration: 32s;
-        animation-direction: alternate-reverse;
-    }
-    @keyframes drift {
-        to {
-            transform: translate(6vmax, 8vmax) scale(1.12);
-        }
-    }
-    @media (prefers-reduced-motion: reduce) {
-        body::before,
-        body::after {
-            animation: none;
-        }
+        background-color: #ffffff;
+        color: var(--color-ink);
     }
     h1, h2, h3 {
         font-family: var(--font-display);
         font-weight: 700;
     }
     ::selection {
-        background: var(--color-rose-soft);
+        background: rgb(231 76 60 / 0.2);
     }
 }
 
 @layer components {
-    /* أزرار حلوى: تطلع شوي لما تمر عليها، وتنضغط لما تضغطها */
+    /* أزرار Figma: مستطيلة، خط Lato صغير بمسافات بين الحروف */
     .btn-primary,
     .btn-outline,
-    .btn-danger,
-    .btn-soft {
-        @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-all duration-200 ease-out select-none focus:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none;
+    .btn-outline-light,
+    .btn-soft,
+    .btn-danger {
+        @apply inline-flex min-h-[45px] items-center justify-center gap-2 border px-8 text-xs font-normal tracking-[1.8px] uppercase transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40;
     }
     .btn-primary {
-        @apply text-white;
-        background: linear-gradient(180deg, rgb(255 255 255 / 0.28), rgb(255 255 255 / 0) 55%), rgb(201 76 62 / 0.92);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgb(255 255 255 / 0.45);
-        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), 0 5px 0 var(--color-brand-dark), 0 12px 20px -10px rgb(140 50 41 / 0.5);
+        @apply border-brand bg-brand text-white hover:border-brand-dark hover:bg-brand-dark;
     }
     .btn-soft {
-        @apply text-white;
-        background: linear-gradient(180deg, rgb(255 255 255 / 0.3), rgb(255 255 255 / 0) 55%), rgb(152 183 210 / 0.95);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgb(255 255 255 / 0.5);
-        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), 0 5px 0 var(--color-sky-dark), 0 12px 20px -10px rgb(111 147 181 / 0.55);
+        @apply border-ink-soft bg-ink-soft text-white hover:border-brand hover:bg-brand;
     }
     .btn-danger {
-        @apply bg-rose-500 text-white;
-        box-shadow: 0 5px 0 var(--color-rose-700);
+        @apply border-rose-700 bg-rose-700 text-white hover:bg-rose-800;
     }
     .btn-outline {
-        @apply border-2 border-dashed border-sky text-ink;
-        background: rgb(255 255 255 / 0.5);
-        -webkit-backdrop-filter: blur(12px);
-        backdrop-filter: blur(12px);
-        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 4px 0 rgb(152 183 210 / 0.35);
+        @apply border-ink bg-transparent text-ink hover:bg-ink hover:text-white;
     }
-    .btn-primary:not(:disabled):hover,
-    .btn-soft:not(:disabled):hover,
-    .btn-danger:not(:disabled):hover,
-    .btn-outline:not(:disabled):hover {
-        transform: translateY(-2px);
-    }
-    .btn-outline:not(:disabled):hover {
-        @apply bg-sky-soft;
-    }
-    .btn-primary:not(:disabled):active,
-    .btn-soft:not(:disabled):active,
-    .btn-danger:not(:disabled):active,
-    .btn-outline:not(:disabled):active {
-        transform: translateY(4px);
-        box-shadow: 0 1px 0 var(--color-sand);
+    .btn-outline-light {
+        @apply border-white bg-transparent text-white hover:bg-white hover:text-ink;
     }
 
     .label {
-        @apply mb-1.5 block text-sm font-bold text-ink;
+        @apply mb-1.5 block text-xs font-bold tracking-[1px] text-ink-soft uppercase;
     }
     .input {
-        @apply w-full rounded-2xl border-2 border-white/80 bg-white/60 px-4 py-3 text-ink backdrop-blur-md transition placeholder:text-muted/60 focus:border-sky focus:bg-white/80 focus:ring-4 focus:ring-sky/20 focus:outline-none;
+        @apply w-full border border-sand bg-white px-4 py-3 text-ink transition placeholder:text-muted focus:border-brand focus:ring-0 focus:outline-none;
     }
     .card {
-        @apply glass rounded-[1.75rem] p-6;
+        @apply border border-sand bg-white p-6;
     }
     .field-error {
-        @apply mt-1.5 text-sm font-bold text-brand-dark;
+        @apply mt-1.5 text-sm text-brand;
     }
 
-    /* كرت منتج على شكل ستيكر: مايل شوي ويتعدل لما تمر عليه */
-    .sticker {
-        @apply glass rounded-[1.75rem] p-2.5 transition-all duration-300 ease-out;
-        transform: rotate(var(--tilt, 0deg));
-    }
-    .sticker:hover {
-        transform: rotate(0deg) translateY(-6px);
-        box-shadow: 0 22px 34px -18px rgb(47 42 58 / 0.4);
-    }
-
-    /* شريط لصق (washi tape) للخصومات والجديد */
-    .tape {
-        @apply absolute z-10 px-4 py-1 text-xs font-bold text-white;
-        background: repeating-linear-gradient(45deg, rgb(201 76 62 / 0.92) 0 8px, rgb(229 145 133 / 0.92) 8px 16px);
-        transform: rotate(-6deg);
-        clip-path: polygon(3% 0, 97% 4%, 100% 100%, 0 96%);
-    }
-
-    /* خط أحمر قصير تحت العناوين */
+    /* عنوان قسم: عريض وتحته خط أحمر ٩٠ بكسل */
     .squiggle {
-        @apply relative inline-block pb-4;
+        @apply relative inline-block pb-5;
     }
     .squiggle::after {
         content: '';
         position: absolute;
         bottom: 0;
         inset-inline-start: 0;
-        width: 72px;
+        width: 90px;
         height: 2px;
-        background: var(--color-brand-dark);
+        background: var(--color-brand);
     }
     .squiggle.text-center::after,
     .text-center > .squiggle::after {
-        inset-inline-start: calc(50% - 36px);
+        inset-inline-start: calc(50% - 45px);
     }
 
-    /* قوام القماش */
-    .stripes {
-        background:
-            repeating-linear-gradient(0deg, rgb(255 255 255 / 0.08) 0 2px, transparent 2px 5px),
-            repeating-linear-gradient(90deg, var(--color-sky) 0 26px, #f2f2ee 26px 58px);
-    }
-    .swirl {
-        background: repeating-radial-gradient(circle at 50% 120%, #efc3cb 0 22px, #f6dfe4 22px 44px);
-    }
-    .gingham {
-        background:
-            repeating-linear-gradient(90deg, rgb(172 200 229 / 0.55) 0 40px, transparent 40px 80px),
-            repeating-linear-gradient(0deg, rgb(172 200 229 / 0.55) 0 40px, transparent 40px 80px),
-            var(--color-butter);
+    /* كرت منتج بسيط */
+    .sticker {
+        @apply bg-white transition duration-300;
     }
 
-    /* رقائق الأقسام والفلاتر */
+    /* شارة الخصم/الجديد */
+    .tape {
+        @apply absolute z-10 bg-brand px-3 py-1 text-[11px] font-bold tracking-[1px] text-white;
+    }
+
+    /* تبويبات الأقسام مثل Figma: النشط خلفيته حمرا */
     .chip {
-        @apply glass shrink-0 rounded-full px-4 py-2 text-sm font-bold text-ink transition hover:bg-white/80;
+        @apply inline-flex h-[35px] shrink-0 items-center px-5 text-xs font-bold tracking-[1px] text-black uppercase transition hover:text-brand;
     }
     .chip-active {
-        @apply shrink-0 rounded-full border-2 border-ink bg-ink px-4 py-2 text-sm font-bold text-cream;
+        @apply inline-flex h-[35px] shrink-0 items-center bg-brand px-5 text-xs font-bold tracking-[1px] text-white uppercase;
+    }
+
+    /* قوام القماش من الملف */
+    .stripes {
+        background: url('/images/alo/hero-stripes.jpg') center / cover;
+    }
+    .swirl {
+        background: url('/images/alo/swirl.jpg') center / cover;
+    }
+    .gingham {
+        background: url('/images/alo/gingham.jpg') center / cover;
+    }
+
+    .glass {
+        @apply bg-white/85 backdrop-blur;
     }
 }

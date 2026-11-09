@@ -12,6 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // بوابات الدفع ترجع العميل لهنا، وبعضها يرجعه بـ POST
+        $middleware->validateCsrfTokens(except: ['payments/*']);
+
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
         ]);

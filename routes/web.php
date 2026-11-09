@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IntroController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PhoneLoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
@@ -55,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::match(['get', 'post'], '/payments/{order}/return', [PaymentController::class, 'return'])->name('payments.return');
 });
 
 // لوحة التحكم

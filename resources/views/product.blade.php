@@ -8,7 +8,7 @@
     <div class="grid gap-8 md:grid-cols-2">
         <div class="sticker relative" style="--tilt: -1.5deg">
             @if ($product->isOnSale())<span class="tape -top-2 right-6">وفّر {{ $product->discountPercent() }}٪</span>@endif
-            <x-product-image :product="$product" class="aspect-square w-full rounded-[1.4rem]" />
+            <x-product-image :product="$product" class="aspect-square w-full" />
         </div>
 
         <div>

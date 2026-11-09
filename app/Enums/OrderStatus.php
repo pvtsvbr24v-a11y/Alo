@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum OrderStatus: string
 {
+    case AwaitingPayment = 'awaiting_payment';
     case Pending = 'pending';
     case Confirmed = 'confirmed';
     case Shipped = 'shipped';
@@ -13,6 +14,7 @@ enum OrderStatus: string
     public function label(): string
     {
         return match ($this) {
+            self::AwaitingPayment => 'بانتظار الدفع',
             self::Pending => 'بانتظار التأكيد',
             self::Confirmed => 'تم التأكيد',
             self::Shipped => 'تم الشحن',
@@ -27,6 +29,7 @@ enum OrderStatus: string
     public function badgeClasses(): string
     {
         return match ($this) {
+            self::AwaitingPayment => 'bg-slate-100 text-slate-700',
             self::Pending => 'bg-amber-100 text-amber-800',
             self::Confirmed => 'bg-sky-100 text-sky-800',
             self::Shipped => 'bg-violet-100 text-violet-800',

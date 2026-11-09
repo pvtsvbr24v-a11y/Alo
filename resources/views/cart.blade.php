@@ -3,7 +3,7 @@
 
     @if ($lines->isEmpty())
         <div class="card py-16 text-center">
-            <p class="text-5xl" aria-hidden="true">🧺</p><p class="mt-3 font-display text-2xl">سلتك فاضية</p>
+            <p class="text-5xl" aria-hidden="true">🧺</p><p class="mt-3 font-display text-2xl font-bold">سلتك فاضية</p>
             <p class="mt-1 text-muted">تصفّح المنتجات وأضف اللي يعجبك.</p>
             <a href="{{ route('shop') }}" class="btn-primary mt-5">ابدأ التسوّق</a>
         </div>
@@ -12,7 +12,7 @@
             <ul class="space-y-3 lg:col-span-2">
                 @foreach ($lines as $line)
                     <li class="card flex gap-4">
-                        <a href="{{ route('products.show', $line['product']) }}" class="h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-sky-soft">
+                        <a href="{{ route('products.show', $line['product']) }}" class="h-24 w-24 shrink-0 overflow-hidden bg-sky-soft">
                             <x-product-image :product="$line['product']" class="h-full w-full" />
                         </a>
                         <div class="flex flex-1 flex-col gap-2">

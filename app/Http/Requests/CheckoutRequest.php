@@ -24,7 +24,7 @@ class CheckoutRequest extends FormRequest
             'district' => ['nullable', 'string', 'max:100'],
             'address' => ['required', 'string', 'max:255'],
             'notes' => ['nullable', 'string', 'max:500'],
-            'payment_method' => ['required', Rule::enum(PaymentMethod::class)],
+            'payment_method' => ['required', Rule::in(array_map(fn (PaymentMethod $method): string => $method->value, PaymentMethod::available()))],
         ];
     }
 

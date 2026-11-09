@@ -54,3 +54,43 @@ document.querySelectorAll('[data-menu-toggle]').forEach((button) => {
         document.getElementById(button.dataset.menuToggle)?.classList.toggle('hidden');
     });
 });
+
+/*
+| تبويبات الأقسام في الرئيسية: تفلتر المنتجات بدون تحميل الصفحة
+*/
+document.querySelectorAll('[data-filter-group]').forEach((group) => {
+    const buttons = group.querySelectorAll('[data-filter]');
+    const items = group.querySelectorAll('[data-category]');
+
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            buttons.forEach((other) => {
+                other.classList.toggle('chip-active', other === button);
+                other.classList.toggle('chip', other !== button);
+            });
+            items.forEach((item) => {
+                const visible = button.dataset.filter === 'all' || item.dataset.category === button.dataset.filter;
+                item.classList.toggle('hidden', !visible);
+            });
+        });
+    });
+});
+
+/*
+| آراء العملاء: نقاط تبدّل بين الآراء
+*/
+document.querySelectorAll('[data-slider]').forEach((slider) => {
+    const slides = slider.querySelectorAll('[data-slide]');
+    const dots = slider.querySelectorAll('[data-slide-to]');
+
+    dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+            const index = Number(dot.dataset.slideTo);
+            slides.forEach((slide, i) => slide.classList.toggle('hidden', i !== index));
+            dots.forEach((other, i) => {
+                other.classList.toggle('bg-brand', i === index);
+                other.classList.toggle('bg-ink/40', i !== index);
+            });
+        });
+    });
+});

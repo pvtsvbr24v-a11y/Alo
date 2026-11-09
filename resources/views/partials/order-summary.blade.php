@@ -10,7 +10,7 @@
         @endif
     </div>
     @if ($shippingFee > 0)
-        <p class="rounded-2xl bg-butter px-4 py-2.5 text-xs">🚚 
+        <p class=" bg-butter px-4 py-2.5 text-xs">🚚 
             أضف بـ <x-price :amount="config('store.free_shipping_from') - $subtotal" class="font-bold" /> وخذ الشحن مجاناً
         </p>
     @endif

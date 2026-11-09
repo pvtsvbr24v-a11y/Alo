@@ -1,4 +1,4 @@
-@props(['title' => null, 'description' => null])
+@props(['title' => null, 'description' => null, 'overlay' => false])
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,111 +8,122 @@
     <meta name="description" content="{{ $description ?? 'متجر Alo: ستيكرات وتشارمز صغيرة صنعتها أختان' }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@500;700&family=Lato:wght@400;700&family=Sansation:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="flex min-h-screen flex-col bg-cream font-sans text-ink antialiased">
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:right-2 focus:rounded focus:bg-white focus:px-3 focus:py-2">تخطَّ للمحتوى</a>
+<body class="flex min-h-screen flex-col font-sans antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:right-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2">تخطَّ للمحتوى</a>
 
     @if (filled(config('content.announcement')))
-        <div class="stripes py-1.5 text-center">
-            <span class="rounded-full bg-cream px-4 py-1 text-xs font-bold text-ink">{{ config('content.announcement') }}</span>
-        </div>
+        <div class="bg-ink-soft py-2 text-center text-xs tracking-[1px] text-white">{{ config('content.announcement') }}</div>
     @endif
 
-    <header class="sticky top-3 z-30 mx-auto mt-3 w-[calc(100%-1.5rem)] max-w-6xl">
-        <div class="glass rounded-[2rem]">
-        <div class="flex items-center gap-4 px-4 py-2.5">
-            <button type="button" class="rounded-full p-2.5 hover:bg-sky-soft md:hidden" data-menu-toggle="mobile-menu" aria-label="القائمة">
+    {{-- الهيدر: فوق البنر في الرئيسية (مثل Figma)، وأبيض في باقي الصفحات --}}
+    <header class="{{ $overlay ? 'absolute inset-x-0 top-0' : 'sticky top-0 border-b border-sand bg-white' }} z-30">
+        <div class="mx-auto flex max-w-[1240px] items-center gap-6 px-6 py-6">
+            <button type="button" class="p-1 md:hidden" data-menu-toggle="mobile-menu" aria-label="القائمة">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
             </button>
 
-            <a href="{{ route('home') }}" class="font-latin text-4xl leading-none font-semibold">Alo<span class="text-brand">.</span></a>
+            <a href="{{ route('home') }}" class="font-latin text-[32px] leading-none font-bold text-wine" dir="ltr">ALO</a>
 
-            <nav class="hidden flex-1 items-center gap-1 text-sm font-bold md:flex" aria-label="الرئيسية">
-                <a href="{{ route('shop') }}" class="rounded-full px-3 py-1.5 hover:bg-sky-soft">المتجر</a>
-                <a href="{{ route('pages.about') }}" class="rounded-full px-3 py-1.5 hover:bg-sky-soft">قصتنا</a>
-                <a href="{{ route('pages.contact') }}" class="rounded-full px-3 py-1.5 hover:bg-sky-soft">تواصل معنا</a>
+            <nav class="hidden flex-1 items-center justify-center gap-9 text-[13px] leading-4 font-bold text-ink md:flex" aria-label="الرئيسية">
+                <a href="{{ route('home') }}" class="hover:text-brand">الرئيسية</a>
+                <a href="{{ route('shop') }}" class="hover:text-brand">المتجر</a>
+                <a href="{{ route('intro') }}" class="hover:text-brand">حكايتنا</a>
+                <a href="{{ route('pages.contact') }}" class="hover:text-brand">تواصل معنا</a>
             </nav>
 
-            <div class="ms-auto flex items-center gap-1">
+            <div class="ms-auto flex items-center gap-2 md:ms-0">
                 <form action="{{ route('shop') }}" method="GET" class="hidden lg:block" role="search">
                     <label for="header-search" class="sr-only">ابحث عن منتج</label>
-                    <input id="header-search" type="search" name="q" value="{{ request('q') }}" placeholder="ابحث عن منتج…" class="input w-56 rounded-full py-2 text-sm">
+                    <input id="header-search" type="search" name="q" value="{{ request('q') }}" placeholder="ابحث…" class="input w-44 bg-white/80 py-2 text-sm">
                 </form>
 
                 @auth
                     @if (auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}" class="rounded-full px-4 py-2 text-sm font-bold text-brand hover:bg-rose-soft">لوحة التحكم</a>
+                        <a href="{{ route('admin.dashboard') }}" class="px-2 text-[13px] font-bold text-brand hover:underline">لوحة التحكم</a>
                     @endif
-                    <a href="{{ route('account') }}" class="rounded-full p-1 hover:bg-white/60" aria-label="حسابي" title="حسابي">
+                    <a href="{{ route('account') }}" class="p-1" aria-label="حسابي" title="حسابي">
                         <x-avatar :user="auth()->user()" size="h-9 w-9 text-base" />
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="rounded-full px-4 py-2 text-sm font-bold hover:bg-sky-soft">دخول</a>
+                    <a href="{{ route('login') }}" class="px-2 text-[13px] font-bold hover:text-brand">دخول</a>
                 @endauth
 
-                <a href="{{ route('cart.index') }}" class="relative rounded-full p-2.5 hover:bg-sky-soft" aria-label="السلة ({{ $cartCount }})">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 2.3c-.6.6-.2 1.7.7 1.7H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <a href="{{ route('cart.index') }}" class="relative p-2 hover:text-brand" aria-label="السلة ({{ $cartCount }})">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12l1 13H5L6 7zm3 0a3 3 0 016 0"/></svg>
                     @if ($cartCount > 0)
-                        <span class="absolute -top-0.5 -left-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-brand px-1 text-xs font-bold text-white">{{ $cartCount }}</span>
+                        <span class="absolute top-0 left-0 flex h-5 min-w-5 items-center justify-center rounded-full bg-brand px-1 text-[11px] font-bold text-white">{{ $cartCount }}</span>
                     @endif
                 </a>
             </div>
         </div>
 
-        <nav id="mobile-menu" class="hidden border-t border-white/60 px-4 py-3 md:hidden" aria-label="قائمة الجوال">
+        <nav id="mobile-menu" class="hidden border-t border-sand bg-white px-6 py-4 md:hidden" aria-label="قائمة الجوال">
             <form action="{{ route('shop') }}" method="GET" class="mb-3" role="search">
                 <label for="mobile-search" class="sr-only">ابحث عن منتج</label>
-                <input id="mobile-search" type="search" name="q" placeholder="ابحث عن منتج…" class="input text-sm">
+                <input id="mobile-search" type="search" name="q" placeholder="ابحث…" class="input text-sm">
             </form>
-            <div class="flex flex-col gap-1 font-bold">
-                <a href="{{ route('shop') }}" class="rounded-full px-4 py-2 hover:bg-sky-soft">المتجر</a>
-                <a href="{{ route('pages.about') }}" class="rounded-full px-4 py-2 hover:bg-sky-soft">قصتنا</a>
-                <a href="{{ route('pages.contact') }}" class="rounded-full px-4 py-2 hover:bg-sky-soft">تواصل معنا</a>
+            <div class="flex flex-col text-[13px] font-bold">
+                <a href="{{ route('home') }}" class="py-2 hover:text-brand">الرئيسية</a>
+                <a href="{{ route('shop') }}" class="py-2 hover:text-brand">المتجر</a>
+                <a href="{{ route('intro') }}" class="py-2 hover:text-brand">حكايتنا</a>
+                <a href="{{ route('pages.contact') }}" class="py-2 hover:text-brand">تواصل معنا</a>
                 @auth
-                    <a href="{{ route('account') }}" class="rounded-full px-4 py-2 hover:bg-sky-soft">حسابي</a>
-                    <form method="POST" action="{{ route('logout') }}">@csrf<button class="w-full rounded-full px-4 py-2 text-start hover:bg-sky-soft">تسجيل الخروج</button></form>
+                    <a href="{{ route('account') }}" class="py-2 hover:text-brand">حسابي</a>
                 @endauth
             </div>
         </nav>
-        </div>
     </header>
 
-    <main id="main" class="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
-        <x-flash />
+    <main id="main" class="{{ $overlay ? 'w-full flex-1' : 'mx-auto w-full max-w-[1240px] flex-1 px-6 py-10' }}">
+        @if ($overlay)
+            <div class="absolute inset-x-0 top-24 z-20 mx-auto max-w-[1240px] px-6"><x-flash /></div>
+        @else
+            <x-flash />
+        @endif
         {{ $slot }}
     </main>
 
-    <footer class="glass-dark mx-3 mt-16 mb-3 rounded-[2.5rem] text-cream">
-        <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3">
-            <div>
-                <p class="font-latin text-4xl font-semibold">Alo<span class="text-brand">.</span></p>
-                @if (filled(config('content.footer_tagline')))<p class="mt-2 font-display text-lg text-cream/80">{{ config('content.footer_tagline') }}</p>@endif
-            </div>
-            <div>
-                <p class="mb-3 font-bold">روابط</p>
-                <ul class="space-y-2 text-sm text-cream/80">
-                    <li><a href="{{ route('intro') }}" class="hover:text-white">حكايتنا</a></li>
-                    <li><a href="{{ route('shop') }}" class="hover:text-white">كل المنتجات</a></li>
-                    <li><a href="{{ route('pages.policies') }}" class="hover:text-white">الشحن والاستبدال والاسترجاع</a></li>
-                    <li><a href="{{ route('pages.contact') }}" class="hover:text-white">تواصل معنا</a></li>
-                    @auth
-                        <li><form method="POST" action="{{ route('logout') }}">@csrf<button class="hover:text-white">تسجيل الخروج</button></form></li>
-                    @endauth
-                </ul>
-            </div>
-            <div>
-                <p class="mb-3 font-bold">طرق الدفع</p>
-                <div class="flex flex-wrap gap-2 text-xs font-bold">
-                    @foreach (\App\Enums\PaymentMethod::cases() as $method)
-                        <span class="rounded-full bg-cream/10 px-3 py-1.5">{{ $method->label() }}</span>
+    {{-- الفوتر (Frame 30) --}}
+    <footer class="mt-auto bg-white">
+        <div class="mx-auto max-w-[717px] px-6 pt-24 pb-20 text-center">
+            <p class="font-latin text-[44px] leading-none font-bold text-wine" dir="ltr">ALO</p>
+            @if (filled(config('content.footer_text')))
+                <p class="mt-9 text-[15px] leading-6 text-body">{{ config('content.footer_text') }}</p>
+            @endif
+            @php($social = array_filter(config('content.social', [])))
+            @if ($social)
+                <div class="mt-9 flex justify-center gap-4" dir="ltr">
+                    @foreach ($social as $network => $url)
+                        <a href="{{ $url }}" class="flex h-[35px] w-[35px] items-center justify-center rounded-full bg-[#3a3a3a] text-white transition hover:bg-brand" aria-label="{{ $network }}" rel="noopener" target="_blank">
+                            @include('partials.social-icon', ['network' => $network])
+                        </a>
                     @endforeach
                 </div>
-                <p class="mt-4 text-xs text-cream/60">الأسعار شاملة ضريبة القيمة المضافة</p>
+            @endif
+        </div>
+        <div class="bg-ink-soft">
+            <div class="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-4 px-6 py-6 text-xs leading-[14px] text-[#f7f7f7]">
+                <nav class="flex flex-wrap gap-x-6 gap-y-2" aria-label="روابط الفوتر">
+                    <a href="{{ route('home') }}" class="hover:text-white">الرئيسية</a>
+                    <a href="{{ route('intro') }}" class="hover:text-white">حكايتنا</a>
+                    <a href="{{ route('shop') }}" class="hover:text-white">المتجر</a>
+                    <a href="{{ route('pages.policies') }}" class="hover:text-white">السياسات</a>
+                    <a href="{{ route('pages.contact') }}" class="hover:text-white">تواصل معنا</a>
+                    @auth
+                        <form method="POST" action="{{ route('logout') }}">@csrf<button class="hover:text-white">تسجيل الخروج</button></form>
+                    @endauth
+                </nav>
+                <div class="flex flex-wrap items-center gap-2">
+                    @foreach (\App\Enums\PaymentMethod::cases() as $method)
+                        <span class="border border-white/20 px-2 py-1 text-[11px]">{{ $method->label() }}</span>
+                    @endforeach
+                </div>
+                <p dir="ltr">© {{ date('Y') }} ALO</p>
             </div>
         </div>
-        <p class="border-t border-cream/10 py-5 text-center text-xs text-cream/60">© {{ date('Y') }} Alo. جميع الحقوق محفوظة.</p>
     </footer>
 </body>
 </html>

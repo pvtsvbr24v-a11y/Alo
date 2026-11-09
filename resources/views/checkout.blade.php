@@ -15,7 +15,7 @@
 
                 <div>
                     <p class="label">رقم الجوال</p>
-                    <p class="rounded-2xl bg-sky-soft px-4 py-3" dir="ltr" style="text-align: right">{{ auth()->user()->phone }}</p>
+                    <p class=" bg-sky-soft px-4 py-3" dir="ltr" style="text-align: right">{{ auth()->user()->phone }}</p>
                 </div>
 
                 <div class="grid gap-4 sm:grid-cols-2">
@@ -51,14 +51,19 @@
 
             <fieldset class="card space-y-3">
                 <legend class="sr-only">طريقة الدفع</legend>
-                <p class="font-display text-2xl">طريقة الدفع</p>
-                @foreach ($paymentMethods as $method)
-                    <label class="flex cursor-pointer items-center gap-3 rounded-2xl border-2 border-dashed border-sand p-4 transition has-[:checked]:border-solid has-[:checked]:border-sky has-[:checked]:bg-sky-soft">
-                        <input type="radio" name="payment_method" value="{{ $method->value }}" class="accent-brand" @checked(old('payment_method', 'cod') === $method->value)>
-                        <span class="font-bold">{{ $method->label() }}</span>
+                <p class="font-display text-2xl font-bold">طريقة الدفع</p>
+                @php($selectedMethod = old('payment_method', $paymentMethods[0]->value ?? null))
+                @forelse ($paymentMethods as $method)
+                    <label class="flex cursor-pointer items-center gap-4 border border-sand p-4 transition has-[:checked]:border-brand has-[:checked]:bg-cream">
+                        <input type="radio" name="payment_method" value="{{ $method->value }}" class="accent-brand" @checked($selectedMethod === $method->value)>
+                        <span>
+                            <span class="block font-bold">{{ $method->label() }}</span>
+                            <span class="block text-xs text-muted">{{ $method->hint() }}</span>
+                        </span>
                     </label>
-                @endforeach
-                <p class="text-xs text-muted">الدفع بمدى وApple Pay ينضاف لما نربط بوابة الدفع.</p>
+                @empty
+                    <p class="text-sm text-muted">ما فيه طرق دفع مفعّلة حالياً.</p>
+                @endforelse
                 @error('payment_method')<p class="field-error">{{ $message }}</p>@enderror
             </fieldset>
 

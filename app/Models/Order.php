@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['number', 'user_id', 'customer_name', 'phone', 'city', 'district', 'address', 'notes', 'payment_method', 'status', 'subtotal', 'shipping_fee', 'total'])]
+#[Fillable(['number', 'user_id', 'customer_name', 'phone', 'city', 'district', 'address', 'notes', 'payment_method', 'payment_reference', 'paid_at', 'status', 'subtotal', 'shipping_fee', 'total'])]
 class Order extends Model
 {
     /** @use HasFactory<OrderFactory> */
@@ -28,6 +28,7 @@ class Order extends Model
             'subtotal' => 'decimal:2',
             'shipping_fee' => 'decimal:2',
             'total' => 'decimal:2',
+            'paid_at' => 'datetime',
         ];
     }
 

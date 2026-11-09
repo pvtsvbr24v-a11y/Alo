@@ -8,6 +8,8 @@ use App\Http\Requests\CheckoutRequest;
 use App\Models\Order;
 use App\Models\Product;
 use App\Services\Cart;
+use App\Services\Payments\PaymentFailed;
+use App\Services\Payments\PaymentGateway;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,7 @@ use Illuminate\View\View;
 
 class CheckoutController extends Controller
 {
-    public function __construct(private Cart $cart) {}
+    public function __construct(private Cart $cart, private PaymentGateway $payments) {}
 
     public function show(Request $request): View|RedirectResponse
     {
@@ -32,7 +34,7 @@ class CheckoutController extends Controller
             'subtotal' => $subtotal,
             'shippingFee' => $shippingFee,
             'total' => $subtotal + $shippingFee,
-            'paymentMethods' => PaymentMethod::cases(),
+            'paymentMethods' => PaymentMethod::available(),
             'cities' => config('store.cities'),
             'lastOrder' => $lastOrder,
         ]);
@@ -49,7 +51,9 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index');
         }
 
-        $order = DB::transaction(function () use ($request, $lines): ?Order {
+        $paymentMethod = PaymentMethod::from($request->validated('payment_method'));
+
+        $order = DB::transaction(function () use ($request, $lines, $paymentMethod): ?Order {
             $products = Product::query()->whereKey($lines->pluck('product.id'))->lockForUpdate()->get()->keyBy('id');
 
             foreach ($lines as $line) {
@@ -65,7 +69,7 @@ class CheckoutController extends Controller
                 ...$request->validated(),
                 'user_id' => $request->user()->id,
                 'phone' => $request->user()->phone,
-                'status' => OrderStatus::Pending,
+                'status' => $paymentMethod->isOnline() ? OrderStatus::AwaitingPayment : OrderStatus::Pending,
                 'subtotal' => $subtotal,
                 'shipping_fee' => $shippingFee,
                 'total' => $subtotal + $shippingFee,
@@ -91,10 +95,20 @@ class CheckoutController extends Controller
         }
 
         $this->rememberDeliveryDetails($request, $order);
-
         $this->cart->clear();
+        $order->refresh();
 
-        return redirect()->route('orders.show', $order->refresh())->with('status', 'تم استلام طلبك بنجاح');
+        if ($paymentMethod->isOnline()) {
+            try {
+                return redirect()->away($this->payments->start($order));
+            } catch (PaymentFailed $exception) {
+                PaymentController::releaseOrder($order, $this->cart);
+
+                return redirect()->route('checkout.show')->with('error', $exception->getMessage());
+            }
+        }
+
+        return redirect()->route('orders.show', $order)->with('status', 'تم استلام طلبك بنجاح');
     }
 
     /**

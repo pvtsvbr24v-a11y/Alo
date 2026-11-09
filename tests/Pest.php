@@ -17,7 +17,6 @@ pest()->extend(TestCase::class)
     ->use(RefreshDatabase::class)
     ->beforeEach(function () {
         Http::preventStrayRequests();
-        Http::fake();
         $this->withoutVite();
         PhoneOtp::useFixedCode('1234');
     })
