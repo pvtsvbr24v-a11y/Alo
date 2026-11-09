@@ -3,7 +3,16 @@
 use App\Models\Category;
 use App\Models\Product;
 
-it('shows the home page with featured products', function () {
+it('shows the interactive intro with products and a link to the store', function () {
+    $product = Product::factory()->featured()->create(['name' => 'فاصل النجمة']);
+
+    $this->get(route('intro'))
+        ->assertOk()
+        ->assertSee('فاصل النجمة')
+        ->assertSee(route('home'));
+});
+
+it('shows the store home page with featured products', function () {
     $product = Product::factory()->featured()->create(['name' => 'كفر الخريطة']);
 
     $this->get(route('home'))->assertOk()->assertSee('كفر الخريطة');

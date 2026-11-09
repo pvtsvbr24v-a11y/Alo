@@ -88,6 +88,7 @@
             <div>
                 <p class="mb-3 font-bold">روابط</p>
                 <ul class="space-y-2 text-sm text-cream/80">
+                    <li><a href="{{ route('intro') }}" class="hover:text-white">حكايتنا</a></li>
                     <li><a href="{{ route('shop') }}" class="hover:text-white">كل المنتجات</a></li>
                     <li><a href="{{ route('pages.policies') }}" class="hover:text-white">الشحن والاستبدال والاسترجاع</a></li>
                     <li><a href="{{ route('pages.contact') }}" class="hover:text-white">تواصل معنا</a></li>
