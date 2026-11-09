@@ -6,87 +6,97 @@
 @source '../../app/Enums';
 
 /*
-| ستايل Alo مأخوذ من ملف Figma:
-| Sansation للعناوين، Lato للنصوص والأزرار، Cormorant و Amiri لقسم الحكاية،
-| أحمر #e74c3c للأزرار والخطوط، وخلفية #f5f5f5.
-| الخط العربي Tajawal يكمّل الحروف العربية في كل الخطوط اللاتينية.
+| ستايل Alo الجديد: "دفتر قصاصات" (scrapbook)
+| - ورق كريمي منقّط، عنابي غامق، بني كاكاو، وردي، أزرق فاتح وزبدي
+| - عناوين بخط سيريف (Gloock / Amiri) مع كلمات بخط يد (Pinyon Script / Aref Ruqaa)
+| - ستيكرات، صور بولارويد، أشرطة لاصقة، وأزرار حبة دواء بحدود منقطة
+| أسماء الألوان القديمة (brand, wine, sky...) باقية عشان باقي الصفحات تشتغل بدون تعديل.
 */
 @theme {
-    --font-sans: 'Lato', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Sansation', 'Tajawal', sans-serif;
-    --font-latin: 'Sansation', sans-serif;
-    --font-story: 'Cormorant Garamond', 'Amiri', serif;
+    --font-sans: 'Tajawal', 'Lato', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Gloock', 'Amiri', Georgia, serif;
+    --font-latin: 'Gloock', 'Amiri', Georgia, serif;
+    --font-script: 'Pinyon Script', 'Aref Ruqaa', cursive;
+    --font-mono: 'Space Mono', 'Tajawal', ui-monospace, monospace;
+    --font-story: 'Gloock', 'Amiri', serif;
     --font-arabic-serif: 'Amiri', serif;
 
-    --color-cream: #f5f5f5;
-    --color-sand: #e6e6e6;
-    --color-ink: #222222;
-    --color-ink-soft: #2a2a2a;
-    --color-muted: #8f8f8f;
-    --color-body: #666666;
-    --color-brand: #e74c3c;
-    --color-brand-dark: #c0392b;
-    --color-wine: #781d1d;
-    --color-sky: #98b7d2;
-    --color-sky-dark: #6f93b5;
-    --color-sky-soft: #eef3f8;
-    --color-rose-soft: #f6dfe4;
-    --color-butter: #f9f3e6;
+    --color-paper: #fbf7ee;
+    --color-cream: #f3ece0;
+    --color-sand: #e7dccb;
+    --color-ink: #2b1714;
+    --color-ink-soft: #3d1f1a;
+    --color-cocoa: #3d1f1a;
+    --color-muted: #8c7b72;
+    --color-body: #5c4943;
+    --color-brand: #8e1b2c;
+    --color-brand-dark: #66101d;
+    --color-wine: #66101d;
+    --color-cherry: #b3263b;
+    --color-blush: #f2d4df;
+    --color-blush-deep: #e6aec2;
+    --color-olive: #87872e;
+    --color-sky: #c8dbee;
+    --color-sky-dark: #7fa3c7;
+    --color-sky-soft: #e8f0f8;
+    --color-rose-soft: #f6dfe7;
+    --color-butter: #f6ecc6;
 }
 
 @layer base {
     body {
-        background-color: #ffffff;
+        background-color: var(--color-paper);
         color: var(--color-ink);
     }
     h1, h2, h3 {
         font-family: var(--font-display);
-        font-weight: 700;
+        font-weight: 400;
+        color: var(--color-ink);
     }
     ::selection {
-        background: rgb(231 76 60 / 0.2);
+        background: rgb(142 27 44 / 0.18);
     }
 }
 
 @layer components {
-    /* أزرار Figma: مستطيلة، خط Lato صغير بمسافات بين الحروف */
+    /* أزرار: حبة دواء مثل "Work with Us" */
     .btn-primary,
     .btn-outline,
     .btn-outline-light,
     .btn-soft,
     .btn-danger {
-        @apply inline-flex min-h-[45px] items-center justify-center gap-2 border px-8 text-xs font-normal tracking-[1.8px] uppercase transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40;
+        @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border px-7 text-sm font-bold transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40;
     }
     .btn-primary {
-        @apply border-brand bg-brand text-white hover:border-brand-dark hover:bg-brand-dark;
+        @apply border-brand bg-brand text-paper hover:-translate-y-0.5 hover:border-brand-dark hover:bg-brand-dark;
     }
     .btn-soft {
-        @apply border-ink-soft bg-ink-soft text-white hover:border-brand hover:bg-brand;
+        @apply border-dashed border-ink/50 bg-butter text-ink hover:border-solid hover:border-brand hover:bg-brand hover:text-paper;
     }
     .btn-danger {
         @apply border-rose-700 bg-rose-700 text-white hover:bg-rose-800;
     }
     .btn-outline {
-        @apply border-ink bg-transparent text-ink hover:bg-ink hover:text-white;
+        @apply border-dashed border-ink/60 bg-transparent text-ink hover:border-solid hover:bg-ink hover:text-paper;
     }
     .btn-outline-light {
-        @apply border-white bg-transparent text-white hover:bg-white hover:text-ink;
+        @apply border-dashed border-paper/70 bg-transparent text-paper hover:border-solid hover:bg-paper hover:text-ink;
     }
 
     .label {
-        @apply mb-1.5 block text-xs font-bold tracking-[1px] text-ink-soft uppercase;
+        @apply mb-1.5 block text-sm font-bold text-ink-soft;
     }
     .input {
-        @apply w-full border border-sand bg-white px-4 py-3 text-ink transition placeholder:text-muted focus:border-brand focus:ring-0 focus:outline-none;
+        @apply w-full rounded-xl border border-sand bg-white px-4 py-3 text-ink transition placeholder:text-muted focus:border-brand focus:ring-0 focus:outline-none;
     }
     .card {
-        @apply border border-sand bg-white p-6;
+        @apply rounded-2xl border border-sand bg-white p-6;
     }
     .field-error {
         @apply mt-1.5 text-sm text-brand;
     }
 
-    /* عنوان قسم: عريض وتحته خط أحمر ٩٠ بكسل */
+    /* عنوان قسم وتحته خط متموج بالعنابي */
     .squiggle {
         @apply relative inline-block pb-5;
     }
@@ -95,60 +105,119 @@
         position: absolute;
         bottom: 0;
         inset-inline-start: 0;
-        width: 90px;
-        height: 2px;
-        background: var(--color-brand);
+        width: 96px;
+        height: 10px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 10'%3E%3Cpath d='M1 5c8-6 16 6 24 0s16 6 24 0 16 6 24 0 16 6 22 0' fill='none' stroke='%238e1b2c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
     }
     .squiggle.text-center::after,
     .text-center > .squiggle::after {
-        inset-inline-start: calc(50% - 45px);
+        inset-inline-start: calc(50% - 48px);
     }
 
-    /* كرت منتج بسيط */
+    /* كلمة بخط اليد داخل العنوان */
+    .script-accent {
+        font-family: var(--font-script);
+        font-weight: 400;
+        font-size: 1.12em;
+        line-height: 0.9;
+        color: inherit;
+    }
+
+    /* سطر صغير فوق العناوين (WHERE CULTURE MEETS...) */
+    .kicker {
+        @apply font-mono text-[11px] font-bold tracking-[0.18em] uppercase;
+    }
+
+    /* كرت منتج: بولارويد */
     .sticker {
-        @apply bg-white transition duration-300;
+        @apply rounded-[4px] bg-white p-2.5 pb-4 shadow-[0_1px_0_rgb(43_23_20/0.06),0_12px_24px_-14px_rgb(43_23_20/0.35)] transition duration-300 hover:-translate-y-1 hover:rotate-0;
     }
 
-    /* شارة الخصم/الجديد */
+    /* شارة الخصم: ستيكر مقصوص */
     .tape {
-        @apply absolute z-10 bg-brand px-3 py-1 text-[11px] font-bold tracking-[1px] text-white;
+        @apply absolute z-10 -rotate-6 rounded-md border border-dashed border-brand bg-blush px-2.5 py-1 font-mono text-[11px] font-bold text-brand shadow-sm;
     }
 
-    /* تبويبات الأقسام مثل Figma: النشط خلفيته حمرا */
+    /* شريط لاصق شفاف فوق الصور */
+    .washi {
+        @apply pointer-events-none absolute z-10 h-6 w-20 bg-butter/80 shadow-sm;
+        mask: linear-gradient(90deg, transparent 0 2px, #000 2px calc(100% - 2px), transparent 0);
+    }
+
+    /* صورة بولارويد للبنرات */
+    .polaroid {
+        @apply bg-paper p-3 pb-12 shadow-[0_20px_40px_-18px_rgb(0_0_0/0.6)];
+    }
+
+    /* ختم صغير بحدود مسننة (G·M·S) */
+    .stamp {
+        @apply inline-block bg-paper px-4 py-2 font-script text-xl text-brand;
+        outline: 2px dashed var(--color-blush-deep);
+        outline-offset: -6px;
+    }
+
+    /* تبويبات الأقسام */
     .chip {
-        @apply inline-flex h-[35px] shrink-0 items-center px-5 text-xs font-bold tracking-[1px] text-black uppercase transition hover:text-brand;
+        @apply inline-flex h-9 shrink-0 items-center rounded-full border border-dashed border-ink/40 px-5 text-sm font-bold text-ink transition hover:border-solid hover:border-brand hover:text-brand;
     }
     .chip-active {
-        @apply inline-flex h-[35px] shrink-0 items-center bg-brand px-5 text-xs font-bold tracking-[1px] text-white uppercase;
+        @apply inline-flex h-9 shrink-0 items-center rounded-full border border-brand bg-brand px-5 text-sm font-bold text-paper;
     }
 
-    /* قوام القماش من الملف */
-    /* خلفيات Figma مرسومة بالكود: حادة على أي شاشة */
+    /* خلفيات البنرات */
+    .dots {
+        background-color: var(--color-paper);
+        background-image:
+            radial-gradient(circle, var(--color-ink) 2px, transparent 2.6px),
+            radial-gradient(circle, var(--color-ink) 2px, transparent 2.6px);
+        background-size: 46px 46px;
+        background-position: 0 0, 23px 23px;
+    }
+    .dots-soft {
+        background-color: var(--color-paper);
+        background-image: radial-gradient(circle, rgb(43 23 20 / 0.12) 1.5px, transparent 2px);
+        background-size: 22px 22px;
+    }
     .stripes {
-        background: #f6f7f6 url('/images/alo/hero-stripes.svg') center / cover;
+        background: repeating-linear-gradient(90deg, var(--color-sky) 0 48px, var(--color-paper) 48px 96px);
     }
     .swirl {
-        background: #fac9da url('/images/alo/swirl.svg') center bottom / cover;
+        background: var(--color-blush);
     }
     .sky {
-        background: #e4f1fd;
+        background: var(--color-sky);
     }
-
     .glass {
         @apply bg-white/85 backdrop-blur;
     }
 }
 
-/* الشريط المتحرك: يمشي من اليسار لليمين بدون توقف، والكلام مكرر عشان ما يطلع فراغ */
+/* الشريط المتحرك */
 .marquee-track {
     animation: marquee 60s linear infinite;
     will-change: transform;
 }
 @keyframes marquee {
-    from {
-        transform: translateX(-50%);
-    }
-    to {
-        transform: translateX(0);
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+}
+
+/* حركات خفيفة للستيكرات */
+.float-slow {
+    animation: float 6s ease-in-out infinite;
+}
+.spin-slow {
+    animation: spin 22s linear infinite;
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+    50% { transform: translateY(-8px) rotate(var(--r, 0deg)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .float-slow,
+    .spin-slow {
+        animation: none;
     }
 }
