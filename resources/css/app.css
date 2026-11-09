@@ -5,38 +5,135 @@
 @source '../views';
 @source '../../app/Enums';
 
-/* ألوان مؤقتة مأخوذة من القالب (بيج وبرتقالي)، تتغير لما يدخل تصميم Figma */
+/*
+| ستايل Alo: قماش مقلّم، باستيل ناعم، وحكايات صغيرة.
+*/
 @theme {
     --font-sans: 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Amiri', 'Cormorant Garamond', serif;
+    --font-latin: 'Cormorant Garamond', serif;
 
-    --color-cream: #f5f1ea;
-    --color-sand: #ebe3d6;
-    --color-ink: #2b2118;
-    --color-muted: #7a6a5a;
-    --color-brand: #c8692c;
-    --color-brand-dark: #a5531f;
+    --color-cream: #f7f3ec;
+    --color-sand: #efe6d8;
+    --color-ink: #2f2a3a;
+    --color-muted: #857c8c;
+    --color-brand: #d9776a;
+    --color-brand-dark: #b8574a;
+    --color-sky: #8fb1de;
+    --color-sky-dark: #6a8fc2;
+    --color-sky-soft: #e4edf9;
+    --color-rose-soft: #f8e3de;
+    --color-butter: #f8ecc9;
+}
+
+@layer base {
+    body {
+        background-color: var(--color-cream);
+        background-image: radial-gradient(rgb(143 177 222 / 0.12) 1px, transparent 1px);
+        background-size: 18px 18px;
+    }
+    h1, h2, h3 {
+        font-family: var(--font-display);
+        font-weight: 700;
+    }
+    ::selection {
+        background: var(--color-rose-soft);
+    }
 }
 
 @layer components {
-    .btn-primary {
-        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50 bg-brand text-white hover:bg-brand-dark;
+    /* أزرار حلوى: تطلع شوي لما تمر عليها، وتنضغط لما تضغطها */
+    .btn-primary,
+    .btn-outline,
+    .btn-danger,
+    .btn-soft {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-all duration-200 ease-out select-none focus:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none;
     }
-    .btn-outline {
-        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50 border border-ink/20 text-ink hover:bg-sand;
+    .btn-primary {
+        @apply bg-brand text-white;
+        box-shadow: 0 5px 0 var(--color-brand-dark), 0 12px 20px -10px rgb(184 87 74 / 0.6);
+    }
+    .btn-soft {
+        @apply bg-sky text-white;
+        box-shadow: 0 5px 0 var(--color-sky-dark), 0 12px 20px -10px rgb(106 143 194 / 0.6);
     }
     .btn-danger {
-        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/30 disabled:cursor-not-allowed disabled:opacity-50 bg-rose-600 text-white hover:bg-rose-700;
+        @apply bg-rose-500 text-white;
+        box-shadow: 0 5px 0 var(--color-rose-700);
     }
+    .btn-outline {
+        @apply border-2 border-dashed border-sky bg-white text-ink;
+        box-shadow: 0 4px 0 var(--color-sky-soft);
+    }
+    .btn-primary:not(:disabled):hover,
+    .btn-soft:not(:disabled):hover,
+    .btn-danger:not(:disabled):hover,
+    .btn-outline:not(:disabled):hover {
+        transform: translateY(-2px);
+    }
+    .btn-outline:not(:disabled):hover {
+        @apply bg-sky-soft;
+    }
+    .btn-primary:not(:disabled):active,
+    .btn-soft:not(:disabled):active,
+    .btn-danger:not(:disabled):active,
+    .btn-outline:not(:disabled):active {
+        transform: translateY(4px);
+        box-shadow: 0 1px 0 var(--color-sand);
+    }
+
     .label {
-        @apply mb-1 block text-sm font-bold text-ink;
+        @apply mb-1.5 block text-sm font-bold text-ink;
     }
     .input {
-        @apply w-full rounded-lg border border-ink/15 bg-white px-4 py-2.5 text-ink placeholder-muted/70 focus:border-brand focus:ring-2 focus:ring-brand/20 focus:outline-none;
+        @apply w-full rounded-2xl border-2 border-sand bg-white px-4 py-3 text-ink transition placeholder:text-muted/60 focus:border-sky focus:ring-4 focus:ring-sky/20 focus:outline-none;
     }
     .card {
-        @apply rounded-2xl bg-white p-5 shadow-sm ring-1 ring-ink/5;
+        @apply rounded-[1.75rem] bg-white p-6 ring-1 ring-ink/5;
+        box-shadow: 0 10px 30px -18px rgb(47 42 58 / 0.25);
     }
     .field-error {
-        @apply mt-1 text-sm text-rose-600;
+        @apply mt-1.5 text-sm font-bold text-brand-dark;
+    }
+
+    /* كرت منتج على شكل ستيكر: مايل شوي ويتعدل لما تمر عليه */
+    .sticker {
+        @apply rounded-[1.75rem] bg-white p-2.5 ring-1 ring-ink/5 transition-all duration-300 ease-out;
+        box-shadow: 0 12px 24px -16px rgb(47 42 58 / 0.35);
+        transform: rotate(var(--tilt, 0deg));
+    }
+    .sticker:hover {
+        transform: rotate(0deg) translateY(-6px);
+        box-shadow: 0 22px 34px -18px rgb(47 42 58 / 0.4);
+    }
+
+    /* شريط لصق (washi tape) للخصومات والجديد */
+    .tape {
+        @apply absolute z-10 px-4 py-1 text-xs font-bold text-white;
+        background: repeating-linear-gradient(45deg, rgb(217 119 106 / 0.92) 0 8px, rgb(229 145 133 / 0.92) 8px 16px);
+        transform: rotate(-6deg);
+        clip-path: polygon(3% 0, 97% 4%, 100% 100%, 0 96%);
+    }
+
+    /* خط متموج تحت العناوين */
+    .squiggle {
+        @apply relative inline-block pb-3;
+    }
+    .squiggle::after {
+        content: '';
+        @apply absolute inset-x-0 bottom-0 h-2.5;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='10' viewBox='0 0 24 10'%3E%3Cpath d='M0 5 Q6 0 12 5 T24 5' fill='none' stroke='%23d9776a' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x center / 24px 10px;
+    }
+
+    .stripes {
+        background: repeating-linear-gradient(90deg, var(--color-sky) 0 26px, var(--color-cream) 26px 56px);
+    }
+
+    /* رقائق الأقسام والفلاتر */
+    .chip {
+        @apply shrink-0 rounded-full border-2 border-transparent bg-white px-4 py-2 text-sm font-bold text-ink transition hover:border-sky hover:bg-sky-soft;
+    }
+    .chip-active {
+        @apply shrink-0 rounded-full border-2 border-ink bg-ink px-4 py-2 text-sm font-bold text-cream;
     }
 }

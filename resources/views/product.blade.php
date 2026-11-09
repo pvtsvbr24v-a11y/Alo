@@ -6,18 +6,19 @@
     </nav>
 
     <div class="grid gap-8 md:grid-cols-2">
-        <div class="aspect-square overflow-hidden rounded-3xl bg-white ring-1 ring-ink/5">
-            <x-product-image :product="$product" class="h-full w-full" />
+        <div class="sticker relative" style="--tilt: -1.5deg">
+            @if ($product->isOnSale())<span class="tape -top-2 right-6">وفّر {{ $product->discountPercent() }}٪</span>@endif
+            <x-product-image :product="$product" class="aspect-square w-full rounded-[1.4rem]" />
         </div>
 
         <div>
-            <h1 class="text-3xl font-extrabold">{{ $product->name }}</h1>
+            <p class="text-sm font-bold text-sky-dark">{{ $product->category->name }}</p>
+            <h1 class="mt-1 text-4xl leading-snug">{{ $product->name }}</h1>
 
             <div class="mt-4 flex items-baseline gap-3">
                 <x-price :amount="$product->price" class="text-3xl font-bold text-brand" />
                 @if ($product->isOnSale())
                     <x-price :amount="$product->compare_at_price" class="text-lg text-muted line-through" />
-                    <span class="rounded-full bg-brand/10 px-2.5 py-1 text-xs font-bold text-brand">وفّر {{ $product->discountPercent() }}٪</span>
                 @endif
             </div>
             <p class="mt-1 text-xs text-muted">شامل ضريبة القيمة المضافة</p>
@@ -39,17 +40,17 @@
                         @error('quantity')<p class="field-error">{{ $message }}</p>@enderror
                     </div>
                     <div class="flex flex-wrap gap-3">
-                        <button type="submit" class="btn-primary flex-1 sm:flex-none">أضف للسلة</button>
+                        <button type="submit" class="btn-primary flex-1 sm:flex-none">أضف للسلة 🤍</button>
                         <button type="submit" name="buy_now" value="1" class="btn-outline flex-1 sm:flex-none">اشترِ الآن</button>
                     </div>
                 </form>
             @else
-                <p class="mt-6 rounded-lg bg-sand px-4 py-3 font-bold">نفدت الكمية، ترجع قريباً إن شاء الله</p>
+                <p class="mt-6 rounded-full bg-rose-soft px-5 py-3 font-bold text-brand-dark">نفدت الكمية، ترجع قريباً إن شاء الله</p>
             @endif
 
             @if ($product->description)
-                <div class="mt-8 border-t border-ink/10 pt-6">
-                    <h2 class="mb-2 font-bold">الوصف</h2>
+                <div class="mt-8 border-t-2 border-dashed border-sky/40 pt-6">
+                    <h2 class="mb-2 text-xl">الحكاية</h2>
                     <p class="leading-8 whitespace-pre-line text-muted">{{ $product->description }}</p>
                 </div>
             @endif
@@ -63,8 +64,8 @@
 
     @if ($relatedProducts->isNotEmpty())
         <section class="mt-16" aria-labelledby="related-title">
-            <h2 id="related-title" class="mb-5 text-2xl font-extrabold">منتجات مشابهة</h2>
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <h2 id="related-title" class="squiggle mb-8 text-3xl">حكايات قريبة</h2>
+            <div class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-6">
                 @foreach ($relatedProducts as $related)
                     <x-product-card :product="$related" />
                 @endforeach

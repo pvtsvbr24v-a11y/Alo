@@ -1,6 +1,6 @@
 <x-layouts.store title="الشحن والاستبدال والاسترجاع">
     <article class="mx-auto max-w-2xl space-y-6 leading-8">
-        <h1 class="text-3xl font-extrabold">الشحن والاستبدال والاسترجاع</h1>
+        <h1 class="squiggle text-4xl">الشحن والاستبدال والاسترجاع</h1>
         <section>
             <h2 class="text-xl font-bold">الشحن</h2>
             <p>نشحن لكل مدن المملكة خلال ٢ إلى ٥ أيام عمل. رسوم الشحن <x-price :amount="config('store.shipping_fee')" />، ومجاني للطلبات فوق <x-price :amount="config('store.free_shipping_from')" />.</p>

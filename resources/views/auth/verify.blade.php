@@ -2,7 +2,7 @@
     <div class="mx-auto max-w-sm">
         <div class="card space-y-5 p-8">
             <div class="text-center">
-                <h1 class="text-2xl font-extrabold">اكتب الرمز</h1>
+                <h1 class="text-3xl">اكتب الرمز</h1>
                 <p class="mt-1 text-sm text-muted">أرسلنا رمز من {{ \App\Services\PhoneOtp::LENGTH }} أرقام إلى <span dir="ltr" class="font-bold text-ink">{{ $phone }}</span></p>
             </div>
             <form method="POST" action="{{ route('login.verify') }}" class="space-y-4">

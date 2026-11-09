@@ -1,7 +1,7 @@
 <x-layouts.store :title="'طلب '.$order->number">
     <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-            <h1 class="text-3xl font-extrabold">طلب <span dir="ltr">{{ $order->number }}</span></h1>
+            <h1 class="text-4xl">طلب <span dir="ltr">{{ $order->number }}</span></h1>
             <p class="mt-1 text-sm text-muted">{{ $order->created_at->translatedFormat('j F Y، g:i a') }}</p>
         </div>
         <span class="rounded-full px-4 py-1.5 text-sm font-bold {{ $order->status->badgeClasses() }}">{{ $order->status->label() }}</span>
