@@ -30,7 +30,6 @@
             <nav class="hidden flex-1 items-center justify-center gap-9 text-[13px] leading-4 font-bold text-ink md:flex" aria-label="الرئيسية">
                 <a href="{{ route('home') }}" class="hover:text-brand">الرئيسية</a>
                 <a href="{{ route('shop') }}" class="hover:text-brand">المتجر</a>
-                <a href="{{ route('intro') }}" class="hover:text-brand">حكايتنا</a>
                 <a href="{{ route('pages.contact') }}" class="hover:text-brand">تواصل معنا</a>
             </nav>
 
@@ -68,7 +67,6 @@
             <div class="flex flex-col text-[13px] font-bold">
                 <a href="{{ route('home') }}" class="py-2 hover:text-brand">الرئيسية</a>
                 <a href="{{ route('shop') }}" class="py-2 hover:text-brand">المتجر</a>
-                <a href="{{ route('intro') }}" class="py-2 hover:text-brand">حكايتنا</a>
                 <a href="{{ route('pages.contact') }}" class="py-2 hover:text-brand">تواصل معنا</a>
                 @auth
                     <a href="{{ route('account') }}" class="py-2 hover:text-brand">حسابي</a>
@@ -108,7 +106,6 @@
             <div class="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-4 px-6 py-6 text-xs leading-[14px] text-[#f7f7f7]">
                 <nav class="flex flex-wrap gap-x-6 gap-y-2" aria-label="روابط الفوتر">
                     <a href="{{ route('home') }}" class="hover:text-white">الرئيسية</a>
-                    <a href="{{ route('intro') }}" class="hover:text-white">حكايتنا</a>
                     <a href="{{ route('shop') }}" class="hover:text-white">المتجر</a>
                     <a href="{{ route('pages.policies') }}" class="hover:text-white">السياسات</a>
                     <a href="{{ route('pages.contact') }}" class="hover:text-white">تواصل معنا</a>
