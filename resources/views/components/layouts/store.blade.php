@@ -20,12 +20,12 @@
 
     {{-- الهيدر: فوق البنر في الرئيسية (مثل Figma)، وأبيض في باقي الصفحات --}}
     <header class="{{ $overlay ? 'absolute inset-x-0 top-0' : 'sticky top-0 border-b border-sand bg-white' }} z-30">
-        <div class="mx-auto flex max-w-[1240px] items-center gap-6 px-6 py-6">
+        <div class="mx-auto flex max-w-[1240px] items-center gap-6 px-6 py-4">
             <button type="button" class="p-1 md:hidden" data-menu-toggle="mobile-menu" aria-label="القائمة">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
             </button>
 
-            <a href="{{ route('home') }}" class="font-latin text-[32px] leading-none font-bold text-wine" dir="ltr">ALO</a>
+            <a href="{{ route('home') }}" class="font-latin text-[28px] leading-none font-bold text-wine" dir="ltr">ALO</a>
 
             <nav class="hidden flex-1 items-center justify-center gap-9 text-[13px] leading-4 font-bold text-ink md:flex" aria-label="الرئيسية">
                 <a href="{{ route('home') }}" class="hover:text-brand">الرئيسية</a>

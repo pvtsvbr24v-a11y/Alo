@@ -12,6 +12,10 @@ class HomeController extends Controller
     {
         $featuredProducts = Product::query()->active()->where('is_featured', true)->latest()->take(4)->get();
 
+        if ($featuredProducts->isEmpty()) {
+            $featuredProducts = Product::query()->active()->latest()->take(4)->get();
+        }
+
         $offerProducts = Product::query()->active()->whereColumn('compare_at_price', '>', 'price')->latest()->take(4)->get();
 
         if ($offerProducts->count() < 4) {
