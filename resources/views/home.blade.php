@@ -1,11 +1,11 @@
 <x-layouts.store :overlay="true">
     {{-- ١. البنر المقلّم (Frame 2) والقطة بنفس مكانها في Figma: نصها السفلي يطلع تحت البنر --}}
     <section class="stripes relative z-10 min-h-[420px] rounded-b-[18px] sm:min-h-[min(70vh,640px)]">
-        <img src="{{ asset('images/alo/cat-sticker.png') }}" alt="" class="pointer-events-none absolute right-[2.6%] bottom-0 w-[28%] max-w-[392px] min-w-[150px] translate-y-[61%]">
+        <img src="{{ asset('images/alo/cat-sticker.png') }}" alt="" class="pointer-events-none absolute right-[3%] bottom-0 w-[17%] max-w-[260px] min-w-[110px] translate-y-[61%]" width="1176" height="864">
     </section>
 
     {{-- ٢. المنتجات (المساحة البيضا) --}}
-    <section class="bg-white px-6 pt-[max(5rem,15vw)] pb-20 lg:pt-44">
+    <section class="bg-white px-6 pt-[max(5rem,10vw)] pb-20 lg:pt-32">
         @if ($categories->isNotEmpty())
             <nav class="mb-10 flex flex-wrap justify-center gap-x-6 gap-y-2" aria-label="الأقسام">
                 <a href="{{ route('shop') }}" class="chip-active">الكل</a>
