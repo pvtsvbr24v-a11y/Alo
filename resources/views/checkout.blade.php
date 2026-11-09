@@ -24,21 +24,21 @@
                         <select id="city" name="city" class="input" required>
                             <option value="">اختر المدينة</option>
                             @foreach ($cities as $city)
-                                <option value="{{ $city }}" @selected(old('city', $lastOrder?->city) === $city)>{{ $city }}</option>
+                                <option value="{{ $city }}" @selected(old('city', auth()->user()->city ?? $lastOrder?->city) === $city)>{{ $city }}</option>
                             @endforeach
                         </select>
                         @error('city')<p class="field-error">{{ $message }}</p>@enderror
                     </div>
                     <div>
                         <label for="district" class="label">الحي</label>
-                        <input id="district" name="district" class="input" value="{{ old('district', $lastOrder?->district) }}">
+                        <input id="district" name="district" class="input" value="{{ old('district', auth()->user()->district ?? $lastOrder?->district) }}">
                         @error('district')<p class="field-error">{{ $message }}</p>@enderror
                     </div>
                 </div>
 
                 <div>
                     <label for="address" class="label">العنوان بالتفصيل</label>
-                    <input id="address" name="address" class="input" autocomplete="street-address" required placeholder="الشارع، رقم المبنى، أو العنوان الوطني" value="{{ old('address', $lastOrder?->address) }}">
+                    <input id="address" name="address" class="input" autocomplete="street-address" required placeholder="الشارع، رقم المبنى، أو العنوان الوطني" value="{{ old('address', auth()->user()->address ?? $lastOrder?->address) }}">
                     @error('address')<p class="field-error">{{ $message }}</p>@enderror
                 </div>
 

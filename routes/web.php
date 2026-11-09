@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -46,6 +47,10 @@ Route::middleware('guest')->group(function () {
 // للعملاء المسجلين
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [PhoneLoginController::class, 'logout'])->name('logout');
+    Route::get('/account', [AccountController::class, 'show'])->name('account');
+    Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
+    Route::post('/account/avatar', [AccountController::class, 'updateAvatar'])->name('account.avatar');
+    Route::delete('/account/avatar', [AccountController::class, 'destroyAvatar'])->name('account.avatar.destroy');
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');

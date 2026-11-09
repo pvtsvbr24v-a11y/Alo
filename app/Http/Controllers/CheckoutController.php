@@ -90,12 +90,25 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'بعض المنتجات ما عاد فيها كمية كافية، راجع السلة');
         }
 
-        if (blank($request->user()->name)) {
-            $request->user()->update(['name' => $order->customer_name]);
-        }
+        $this->rememberDeliveryDetails($request, $order);
 
         $this->cart->clear();
 
         return redirect()->route('orders.show', $order->refresh())->with('status', 'تم استلام طلبك بنجاح');
+    }
+
+    /**
+     * أول طلب يعبّي معلومات حساب العميل الفاضية، عشان المرة الجاية تكون جاهزة.
+     */
+    private function rememberDeliveryDetails(CheckoutRequest $request, Order $order): void
+    {
+        $user = $request->user();
+
+        $user->fill(array_filter([
+            'name' => blank($user->name) ? $order->customer_name : null,
+            'city' => blank($user->city) ? $order->city : null,
+            'district' => blank($user->district) ? $order->district : null,
+            'address' => blank($user->address) ? $order->address : null,
+        ]))->save();
     }
 }

@@ -16,5 +16,5 @@
 
     @include('partials.order-details')
 
-    <a href="{{ route('orders.index') }}" class="mt-6 inline-block text-sm font-bold text-muted hover:text-ink">← كل طلباتي</a>
+    <a href="{{ route('account') }}" class="btn-outline mt-6">← حسابي</a>
 </x-layouts.store>

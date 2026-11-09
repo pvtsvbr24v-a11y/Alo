@@ -26,11 +26,77 @@
     --color-butter: #f8ecc9;
 }
 
+
+/* الزجاج: أبيض شفاف مضبب بحافة لامعة. لو المتصفح ما يدعم الضبابية يصير أبيض سادة */
+@utility glass {
+    background: rgb(255 255 255 / 0.55);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgb(255 255 255 / 0.7);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 12px 32px -18px rgb(47 42 58 / 0.3);
+}
+
+@utility glass-dark {
+    background: rgb(47 42 58 / 0.78);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    backdrop-filter: blur(22px) saturate(140%);
+    border: 1px solid rgb(255 255 255 / 0.12);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass,
+    .card,
+    .sticker,
+    .chip {
+        background: rgb(255 255 255 / 0.94) !important;
+    }
+    .glass-dark {
+        background: var(--color-ink) !important;
+    }
+}
+
 @layer base {
     body {
         background-color: var(--color-cream);
-        background-image: radial-gradient(rgb(143 177 222 / 0.12) 1px, transparent 1px);
-        background-size: 18px 18px;
+    }
+    /* بقع ألوان باستيل خلف الزجاج، تتحرك ببطء */
+    body::before,
+    body::after {
+        content: '';
+        position: fixed;
+        z-index: -1;
+        border-radius: 9999px;
+        filter: blur(70px);
+        opacity: 0.75;
+        pointer-events: none;
+        animation: drift 26s ease-in-out infinite alternate;
+    }
+    body::before {
+        width: 55vmax;
+        height: 55vmax;
+        top: -18vmax;
+        right: -12vmax;
+        background: radial-gradient(circle at 30% 30%, #a9c4ea, #e4edf9 60%, transparent 70%);
+    }
+    body::after {
+        width: 50vmax;
+        height: 50vmax;
+        bottom: -20vmax;
+        left: -14vmax;
+        background: radial-gradient(circle at 60% 40%, #f3c6bd, #f8ecc9 55%, transparent 70%);
+        animation-duration: 32s;
+        animation-direction: alternate-reverse;
+    }
+    @keyframes drift {
+        to {
+            transform: translate(6vmax, 8vmax) scale(1.12);
+        }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        body::before,
+        body::after {
+            animation: none;
+        }
     }
     h1, h2, h3 {
         font-family: var(--font-display);
@@ -50,20 +116,31 @@
         @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-all duration-200 ease-out select-none focus:outline-none focus-visible:ring-4 focus-visible:ring-sky/40 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none;
     }
     .btn-primary {
-        @apply bg-brand text-white;
-        box-shadow: 0 5px 0 var(--color-brand-dark), 0 12px 20px -10px rgb(184 87 74 / 0.6);
+        @apply text-white;
+        background: linear-gradient(180deg, rgb(255 255 255 / 0.28), rgb(255 255 255 / 0) 55%), rgb(217 119 106 / 0.92);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgb(255 255 255 / 0.45);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), 0 5px 0 var(--color-brand-dark), 0 12px 20px -10px rgb(184 87 74 / 0.6);
     }
     .btn-soft {
-        @apply bg-sky text-white;
-        box-shadow: 0 5px 0 var(--color-sky-dark), 0 12px 20px -10px rgb(106 143 194 / 0.6);
+        @apply text-white;
+        background: linear-gradient(180deg, rgb(255 255 255 / 0.3), rgb(255 255 255 / 0) 55%), rgb(143 177 222 / 0.92);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgb(255 255 255 / 0.5);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), 0 5px 0 var(--color-sky-dark), 0 12px 20px -10px rgb(106 143 194 / 0.6);
     }
     .btn-danger {
         @apply bg-rose-500 text-white;
         box-shadow: 0 5px 0 var(--color-rose-700);
     }
     .btn-outline {
-        @apply border-2 border-dashed border-sky bg-white text-ink;
-        box-shadow: 0 4px 0 var(--color-sky-soft);
+        @apply border-2 border-dashed border-sky text-ink;
+        background: rgb(255 255 255 / 0.5);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 4px 0 rgb(143 177 222 / 0.35);
     }
     .btn-primary:not(:disabled):hover,
     .btn-soft:not(:disabled):hover,
@@ -86,11 +163,10 @@
         @apply mb-1.5 block text-sm font-bold text-ink;
     }
     .input {
-        @apply w-full rounded-2xl border-2 border-sand bg-white px-4 py-3 text-ink transition placeholder:text-muted/60 focus:border-sky focus:ring-4 focus:ring-sky/20 focus:outline-none;
+        @apply w-full rounded-2xl border-2 border-white/80 bg-white/60 px-4 py-3 text-ink backdrop-blur-md transition placeholder:text-muted/60 focus:border-sky focus:bg-white/80 focus:ring-4 focus:ring-sky/20 focus:outline-none;
     }
     .card {
-        @apply rounded-[1.75rem] bg-white p-6 ring-1 ring-ink/5;
-        box-shadow: 0 10px 30px -18px rgb(47 42 58 / 0.25);
+        @apply glass rounded-[1.75rem] p-6;
     }
     .field-error {
         @apply mt-1.5 text-sm font-bold text-brand-dark;
@@ -98,8 +174,7 @@
 
     /* كرت منتج على شكل ستيكر: مايل شوي ويتعدل لما تمر عليه */
     .sticker {
-        @apply rounded-[1.75rem] bg-white p-2.5 ring-1 ring-ink/5 transition-all duration-300 ease-out;
-        box-shadow: 0 12px 24px -16px rgb(47 42 58 / 0.35);
+        @apply glass rounded-[1.75rem] p-2.5 transition-all duration-300 ease-out;
         transform: rotate(var(--tilt, 0deg));
     }
     .sticker:hover {
@@ -131,7 +206,7 @@
 
     /* رقائق الأقسام والفلاتر */
     .chip {
-        @apply shrink-0 rounded-full border-2 border-transparent bg-white px-4 py-2 text-sm font-bold text-ink transition hover:border-sky hover:bg-sky-soft;
+        @apply glass shrink-0 rounded-full px-4 py-2 text-sm font-bold text-ink transition hover:bg-white/80;
     }
     .chip-active {
         @apply shrink-0 rounded-full border-2 border-ink bg-ink px-4 py-2 text-sm font-bold text-cream;

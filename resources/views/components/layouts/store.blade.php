@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ? $title.' | ' : '' }}Alo</title>
-    <meta name="description" content="{{ $description ?? 'متجر Alo: إكسسوارات بطابع كلاسيكي لعشاق القصص' }}">
+    <meta name="description" content="{{ $description ?? 'متجر Alo: ستيكرات وتشارمز صغيرة صنعتها أختان' }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -14,12 +14,13 @@
 <body class="flex min-h-screen flex-col bg-cream font-sans text-ink antialiased">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:right-2 focus:rounded focus:bg-white focus:px-3 focus:py-2">تخطَّ للمحتوى</a>
 
-    <div class="stripes py-1.5 text-center">
+    <div class="stripes py-1.5 text-center opacity-90">
         <span class="rounded-full bg-cream px-4 py-1 text-xs font-bold text-ink">🤍 شحن مجاني للطلبات فوق <x-price :amount="config('store.free_shipping_from')" /></span>
     </div>
 
-    <header class="sticky top-0 z-30 border-b-2 border-dashed border-sky/40 bg-cream/90 backdrop-blur">
-        <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
+    <header class="sticky top-3 z-30 mx-auto mt-3 w-[calc(100%-1.5rem)] max-w-6xl">
+        <div class="glass rounded-[2rem]">
+        <div class="flex items-center gap-4 px-4 py-2.5">
             <button type="button" class="rounded-full p-2.5 hover:bg-sky-soft md:hidden" data-menu-toggle="mobile-menu" aria-label="القائمة">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
             </button>
@@ -42,8 +43,8 @@
                     @if (auth()->user()->isAdmin())
                         <a href="{{ route('admin.dashboard') }}" class="rounded-full px-4 py-2 text-sm font-bold text-brand hover:bg-rose-soft">لوحة التحكم</a>
                     @endif
-                    <a href="{{ route('orders.index') }}" class="rounded-full p-2.5 hover:bg-sky-soft" aria-label="طلباتي" title="طلباتي">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    <a href="{{ route('account') }}" class="rounded-full p-1 hover:bg-white/60" aria-label="حسابي" title="حسابي">
+                        <x-avatar :user="auth()->user()" size="h-9 w-9 text-base" />
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="rounded-full px-4 py-2 text-sm font-bold hover:bg-sky-soft">دخول</a>
@@ -58,7 +59,7 @@
             </div>
         </div>
 
-        <nav id="mobile-menu" class="hidden border-t border-ink/10 px-4 py-3 md:hidden" aria-label="قائمة الجوال">
+        <nav id="mobile-menu" class="hidden border-t border-white/60 px-4 py-3 md:hidden" aria-label="قائمة الجوال">
             <form action="{{ route('shop') }}" method="GET" class="mb-3" role="search">
                 <label for="mobile-search" class="sr-only">ابحث عن منتج</label>
                 <input id="mobile-search" type="search" name="q" placeholder="ابحث عن منتج…" class="input text-sm">
@@ -68,10 +69,12 @@
                 <a href="{{ route('pages.about') }}" class="rounded-full px-4 py-2 hover:bg-sky-soft">قصتنا</a>
                 <a href="{{ route('pages.contact') }}" class="rounded-full px-4 py-2 hover:bg-sky-soft">تواصل معنا</a>
                 @auth
+                    <a href="{{ route('account') }}" class="rounded-full px-4 py-2 hover:bg-sky-soft">حسابي</a>
                     <form method="POST" action="{{ route('logout') }}">@csrf<button class="w-full rounded-full px-4 py-2 text-start hover:bg-sky-soft">تسجيل الخروج</button></form>
                 @endauth
             </div>
         </nav>
+        </div>
     </header>
 
     <main id="main" class="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
@@ -79,7 +82,7 @@
         {{ $slot }}
     </main>
 
-    <footer class="mt-16 rounded-t-[2.5rem] bg-ink text-cream">
+    <footer class="glass-dark mx-3 mt-16 mb-3 rounded-[2.5rem] text-cream">
         <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3">
             <div>
                 <p class="font-latin text-4xl font-semibold">Alo<span class="text-brand">.</span></p>
@@ -107,7 +110,7 @@
                 <p class="mt-4 text-xs text-cream/60">الأسعار شاملة ضريبة القيمة المضافة</p>
             </div>
         </div>
-        <p class="border-t border-cream/10 py-4 text-center text-xs text-cream/60">© {{ date('Y') }} Alo. جميع الحقوق محفوظة.</p>
+        <p class="border-t border-cream/10 py-5 text-center text-xs text-cream/60">© {{ date('Y') }} Alo. جميع الحقوق محفوظة.</p>
     </footer>
 </body>
 </html>

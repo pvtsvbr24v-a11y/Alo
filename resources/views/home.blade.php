@@ -5,7 +5,7 @@
             <div>
                 <span class="inline-block -rotate-2 rounded-full bg-rose-soft px-4 py-1.5 text-xs font-bold text-brand-dark">✿ مجموعة الخريف</span>
                 <h1 class="mt-5 text-4xl leading-snug sm:text-6xl">تفاصيلُ صغيرة<br><span class="squiggle">تحكي قصتك</span></h1>
-                <p class="mt-5 max-w-md leading-8 text-muted">كفرات وستيكرات معدنية وفواصل كتب بطابع كلاسيكي، صنعتها أختان لعشاق القراءة والحكايات.</p>
+                <p class="mt-5 max-w-md leading-8 text-muted">ستيكرات وتشارمز صغيرة بطابع كلاسيكي، صنعتها أختان بأيديهما لكل من يحب الحكايات.</p>
                 <div class="mt-8 flex flex-wrap gap-4">
                     <a href="{{ route('shop') }}" class="btn-primary">تسوّق الآن 🤍</a>
                     <a href="{{ route('intro') }}" class="btn-outline">حكايتنا</a>
